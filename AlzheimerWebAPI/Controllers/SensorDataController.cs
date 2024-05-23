@@ -95,7 +95,7 @@ namespace AlzheimerWebAPI.Controllers
                     //{
                     //    Console.WriteLine("Salio de zona segura");
                         //await _hubContext.Clients.All.SendAsync("ReceiveMessage", sensorData.Mac, sensorData.Latitud, sensorData.Longitud);
-                    await _hubContext.Clients.All.SendAsync("ReceiveLocationUpdate", sensorData.Mac, sensorData.Latitud, sensorData.Longitud);
+                    //await _hubContext.Clients.All.SendAsync("ReceiveLocationUpdate", sensorData.Mac, sensorData.Latitud, sensorData.Longitud);
                     //     // Lógica para notificaciones si el dispositivo está fuera de la zona segura
                     //}
 

@@ -91,6 +91,12 @@ namespace AlzheimerWebAPI.Services
                         _logger.LogInformation("Fuera de zona segura");
                         await _hubContext.Clients.Group(sensorData.Mac).SendAsync("ReceiveLocationOut", sensorData.Mac, sensorData.Latitud, sensorData.Longitud, fechaHora.ToString());
                     }
+                    if (sensorData.Caida == true)
+                    {
+                        _logger.LogInformation("El Paciente ha caido"); 
+                        await _hubContext.Clients.Group(sensorData.Mac).SendAsync("ReceiveFall", sensorData.Mac, fechaHora.ToString());
+
+                    }
                     // Enviar notificación solo a los clientes suscritos al dispositivo específico
                     await _hubContext.Clients.Group(sensorData.Mac).SendAsync("ReceiveLocationUpdate", sensorData.Mac, sensorData.Latitud, sensorData.Longitud, fechaHora.ToString());
                 }
