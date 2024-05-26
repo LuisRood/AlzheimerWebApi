@@ -44,6 +44,15 @@ namespace AlzheimerWebAPI.Controllers
                 if (sensorData.Mac != null)
                 {
                     Console.WriteLine(sensorData.Mac);
+                    DateTime fechaHora = (sensorData.Fecha ?? DateTime.MinValue).Date;
+                    fechaHora = fechaHora.Add(sensorData.Hora ?? TimeSpan.Zero);
+                    if (sensorData.Caida == true)
+                    {
+                        _logger.LogInformation("El Paciente ha caido");
+                        await _hubContext.Clients.Group(sensorData.Mac).SendAsync("ReceiveFall", sensorData.Mac, fechaHora.ToString());
+
+
+                    }
                 }
                 // Procesar los datos según los requisitos
                 // Ejemplo de guardar los datos en una base de datos o realizar algún otro procesamiento

@@ -84,25 +84,34 @@ namespace AlzheimerWebAPI.Services
                         IdDispositivo = sensorData.Mac,
                     };
 
-                    ubicaciones = await ubicacionesService.ActualizarUbicacionDispositivo(sensorData.Mac, ubicaciones);
-
+                    Ubicaciones ubicacionestemp = await ubicacionesService.ActualizarUbicacionDispositivo(sensorData.Mac, ubicaciones);
+                    if(ubicacionestemp == null)
+                    {
+                        ubicaciones = await ubicacionesService.CrearUbicacion(ubicaciones);
+                    }
+                    else
+                    {
+                        ubicaciones = ubicacionestemp;
+                    }
                     if (await ubicacionesService.CheckIfOutsideGeofence(sensorData.Mac,ubicaciones))
                     {
                         _logger.LogInformation("Fuera de zona segura");
                         await _hubContext.Clients.Group(sensorData.Mac).SendAsync("ReceiveLocationOut", sensorData.Mac, sensorData.Latitud, sensorData.Longitud, fechaHora.ToString());
-                    }
-                    if (sensorData.Caida == true)
-                    {
-                        _logger.LogInformation("El Paciente ha caido"); 
-                        await _hubContext.Clients.Group(sensorData.Mac).SendAsync("ReceiveFall", sensorData.Mac, fechaHora.ToString());
-
                     }
                     // Enviar notificación solo a los clientes suscritos al dispositivo específico
                     await _hubContext.Clients.Group(sensorData.Mac).SendAsync("ReceiveLocationUpdate", sensorData.Mac, sensorData.Latitud, sensorData.Longitud, fechaHora.ToString());
                 }
                 else
                 {
+                    // Obtiene la fecha actual del sistema
+                    DateTime fechaHora = DateTime.Now.Date;
+
+                    // Añade la hora actual del sistema a la fecha
+                    fechaHora = fechaHora.Add(DateTime.Now.TimeOfDay);
+
+                    //Aqui esta si no da respuesta el cliente mqtt
                     _logger.LogError($"Failed to get location from external server with status code: {response.StatusCode}");
+                    await _hubContext.Clients.Group(mac).SendAsync("ReceiveNotFound", mac, fechaHora.ToString());
                 }
             }
             catch (Exception ex)

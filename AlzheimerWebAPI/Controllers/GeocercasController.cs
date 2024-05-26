@@ -38,7 +38,8 @@ namespace AlzheimerWebAPI.Controllers
             var geocercaCreada = await _geocercasService.crearGeocerca(nuevaGeocerca);
             var geocercaCreadaDTO = new GeocercasDTO(geocercaCreada);
 
-            return CreatedAtAction(nameof(ObtenerGeocerca), new { id = geocercaCreada.IdGeocerca }, geocercaCreadaDTO);
+            //return CreatedAtAction(nameof(ObtenerGeocerca), new { id = geocercaCreadaDTO.IdGeocerca }, geocercaCreadaDTO);
+            return Ok(geocercaCreadaDTO);
         }
 
         [HttpGet("geocercas/{id}")]
