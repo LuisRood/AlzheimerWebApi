@@ -2,6 +2,7 @@
 using AlzheimerWebAPI.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -76,6 +77,20 @@ namespace AlzheimerWebAPI.Controllers
             }
 
             return NoContent();
+        }
+
+        [HttpGet("medicamentospaciente/{id}")]
+        public async Task<IActionResult> ObtenerMedicamentoPaciente(string id)
+        {
+            _logger.LogInformation($"Medicamento del paciente con ID: {id}");
+
+            var medicamentos = await _medicamentosService.ObtenerMedicamentosPaciente(id);
+
+            if(medicamentos.IsNullOrEmpty())
+            {
+                return NotFound();
+            }
+            return Ok(medicamentos);
         }
     }
 }
