@@ -1,4 +1,5 @@
-﻿using AlzheimerWebAPI.Models;
+﻿using AlzheimerWebAPI.DTO;
+using AlzheimerWebAPI.Models;
 using AlzheimerWebAPI.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -50,9 +51,18 @@ namespace AlzheimerWebAPI.Controllers
 
 
         [HttpPut("medicamentos/{id}")]
-        public async Task<IActionResult> ActualizarMedicamento(Guid id, [FromBody] Medicamentos medicamentoActualizado)
+        public async Task<IActionResult> ActualizarMedicamento(Guid id, [FromBody] MedicamentosDTO medicamentoActualizadoDTO)
         {
             _logger.LogInformation($"Actualizando medicamento con ID: {id}");
+
+            Medicamentos medicamentoActualizado = new()
+            {
+                IdMedicamento = medicamentoActualizadoDTO.IdMedicamento,
+                Nombre = medicamentoActualizadoDTO.Nombre,
+                Gramaje = medicamentoActualizadoDTO.Gramaje,
+                Descripcion = medicamentoActualizadoDTO.Descripcion,
+                IdPaciente = medicamentoActualizadoDTO.IdPaciente
+            };
 
             var medicamento = await _medicamentosService.ActualizarMedicamento(id, medicamentoActualizado);
 

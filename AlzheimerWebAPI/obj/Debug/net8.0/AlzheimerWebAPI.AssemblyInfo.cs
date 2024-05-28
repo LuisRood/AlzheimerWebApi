@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AlzheimerWebAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+83dce7852b49b52c2a8c86ffa4b613d91026a3e2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+498b86c42006de14d76bc30d5302b7411fe49aa5")]
 [assembly: System.Reflection.AssemblyProductAttribute("AlzheimerWebAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AlzheimerWebAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

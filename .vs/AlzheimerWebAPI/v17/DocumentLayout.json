@@ -3,24 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{47830E8F-FDC5-4291-BA21-BAC36BDD626B}|AlzheimerWebAPI\\AlzheimerWebAPI.csproj|c:\\users\\luisrodr\u00EDguez\\source\\repos\\alzheimerwebapi\\alzheimerwebapi\\services\\pacientesfamiliaresservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{47830E8F-FDC5-4291-BA21-BAC36BDD626B}|AlzheimerWebAPI\\AlzheimerWebAPI.csproj|solutionrelative:alzheimerwebapi\\services\\pacientesfamiliaresservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{47830E8F-FDC5-4291-BA21-BAC36BDD626B}|AlzheimerWebAPI\\AlzheimerWebAPI.csproj|c:\\users\\luisrodr\u00EDguez\\source\\repos\\alzheimerwebapi\\alzheimerwebapi\\controllers\\pacientesfamiliarescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{47830E8F-FDC5-4291-BA21-BAC36BDD626B}|AlzheimerWebAPI\\AlzheimerWebAPI.csproj|solutionrelative:alzheimerwebapi\\controllers\\pacientesfamiliarescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{47830E8F-FDC5-4291-BA21-BAC36BDD626B}|AlzheimerWebAPI\\AlzheimerWebAPI.csproj|c:\\users\\luisrodr\u00EDguez\\source\\repos\\alzheimerwebapi\\alzheimerwebapi\\controllers\\pacientescuidadorescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{47830E8F-FDC5-4291-BA21-BAC36BDD626B}|AlzheimerWebAPI\\AlzheimerWebAPI.csproj|solutionrelative:alzheimerwebapi\\controllers\\pacientescuidadorescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{47830E8F-FDC5-4291-BA21-BAC36BDD626B}|AlzheimerWebAPI\\AlzheimerWebAPI.csproj|c:\\users\\luisrodr\u00EDguez\\source\\repos\\alzheimerwebapi\\alzheimerwebapi\\controllers\\familiarescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{47830E8F-FDC5-4291-BA21-BAC36BDD626B}|AlzheimerWebAPI\\AlzheimerWebAPI.csproj|solutionrelative:alzheimerwebapi\\controllers\\familiarescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{47830E8F-FDC5-4291-BA21-BAC36BDD626B}|AlzheimerWebAPI\\AlzheimerWebAPI.csproj|c:\\users\\luisrodr\u00EDguez\\source\\repos\\alzheimerwebapi\\alzheimerwebapi\\controllers\\medicamentoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{47830E8F-FDC5-4291-BA21-BAC36BDD626B}|AlzheimerWebAPI\\AlzheimerWebAPI.csproj|solutionrelative:alzheimerwebapi\\controllers\\medicamentoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47830E8F-FDC5-4291-BA21-BAC36BDD626B}|AlzheimerWebAPI\\AlzheimerWebAPI.csproj|c:\\users\\luisrodr\u00EDguez\\source\\repos\\alzheimerwebapi\\alzheimerwebapi\\dto\\medicamentosdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{47830E8F-FDC5-4291-BA21-BAC36BDD626B}|AlzheimerWebAPI\\AlzheimerWebAPI.csproj|solutionrelative:alzheimerwebapi\\dto\\medicamentosdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47830E8F-FDC5-4291-BA21-BAC36BDD626B}|AlzheimerWebAPI\\AlzheimerWebAPI.csproj|c:\\users\\luisrodr\u00EDguez\\source\\repos\\alzheimerwebapi\\alzheimerwebapi\\models\\medicamentos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{47830E8F-FDC5-4291-BA21-BAC36BDD626B}|AlzheimerWebAPI\\AlzheimerWebAPI.csproj|solutionrelative:alzheimerwebapi\\models\\medicamentos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{47830E8F-FDC5-4291-BA21-BAC36BDD626B}|AlzheimerWebAPI\\AlzheimerWebAPI.csproj|c:\\users\\luisrodr\u00EDguez\\source\\repos\\alzheimerwebapi\\alzheimerwebapi\\services\\medicamentosservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -33,6 +25,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{47830E8F-FDC5-4291-BA21-BAC36BDD626B}|AlzheimerWebAPI\\AlzheimerWebAPI.csproj|c:\\users\\luisrodr\u00EDguez\\source\\repos\\alzheimerwebapi\\alzheimerwebapi\\controllers\\sensordatacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{47830E8F-FDC5-4291-BA21-BAC36BDD626B}|AlzheimerWebAPI\\AlzheimerWebAPI.csproj|solutionrelative:alzheimerwebapi\\controllers\\sensordatacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47830E8F-FDC5-4291-BA21-BAC36BDD626B}|AlzheimerWebAPI\\AlzheimerWebAPI.csproj|c:\\users\\luisrodr\u00EDguez\\source\\repos\\alzheimerwebapi\\alzheimerwebapi\\controllers\\familiarescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{47830E8F-FDC5-4291-BA21-BAC36BDD626B}|AlzheimerWebAPI\\AlzheimerWebAPI.csproj|solutionrelative:alzheimerwebapi\\controllers\\familiarescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{47830E8F-FDC5-4291-BA21-BAC36BDD626B}|AlzheimerWebAPI\\AlzheimerWebAPI.csproj|c:\\users\\luisrodr\u00EDguez\\source\\repos\\alzheimerwebapi\\alzheimerwebapi\\notifications\\alzheimerhub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -55,32 +51,45 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "PacientesFamiliaresService.cs",
-              "DocumentMoniker": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\AlzheimerWebAPI\\Services\\PacientesFamiliaresService.cs",
-              "RelativeDocumentMoniker": "AlzheimerWebAPI\\Services\\PacientesFamiliaresService.cs",
-              "ToolTip": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\AlzheimerWebAPI\\Services\\PacientesFamiliaresService.cs",
-              "RelativeToolTip": "AlzheimerWebAPI\\Services\\PacientesFamiliaresService.cs",
-              "ViewState": "AQIAAB4AAAAAAAAAAAAjwCQAAAAhAAAA",
+              "Title": "MedicamentosController.cs",
+              "DocumentMoniker": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\AlzheimerWebAPI\\Controllers\\MedicamentosController.cs",
+              "RelativeDocumentMoniker": "AlzheimerWebAPI\\Controllers\\MedicamentosController.cs",
+              "ToolTip": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\AlzheimerWebAPI\\Controllers\\MedicamentosController.cs",
+              "RelativeToolTip": "AlzheimerWebAPI\\Controllers\\MedicamentosController.cs",
+              "ViewState": "AQIAADUAAAAAAAAAAAA5wEAAAAAOAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-28T01:49:28.791Z",
+              "WhenOpened": "2024-05-28T19:18:57.566Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "PacientesFamiliaresController.cs",
-              "DocumentMoniker": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\AlzheimerWebAPI\\Controllers\\PacientesFamiliaresController.cs",
-              "RelativeDocumentMoniker": "AlzheimerWebAPI\\Controllers\\PacientesFamiliaresController.cs",
-              "ToolTip": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\AlzheimerWebAPI\\Controllers\\PacientesFamiliaresController.cs",
-              "RelativeToolTip": "AlzheimerWebAPI\\Controllers\\PacientesFamiliaresController.cs",
-              "ViewState": "AQIAADAAAAAAAAAAAAArwDYAAABKAAAA",
+              "Title": "MedicamentosDTO.cs",
+              "DocumentMoniker": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\AlzheimerWebAPI\\DTO\\MedicamentosDTO.cs",
+              "RelativeDocumentMoniker": "AlzheimerWebAPI\\DTO\\MedicamentosDTO.cs",
+              "ToolTip": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\AlzheimerWebAPI\\DTO\\MedicamentosDTO.cs",
+              "RelativeToolTip": "AlzheimerWebAPI\\DTO\\MedicamentosDTO.cs",
+              "ViewState": "AQIAAAoAAAAAAAAAAAAwwBQAAAAcAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-28T01:47:56.131Z",
+              "WhenOpened": "2024-05-28T19:16:51.036Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
+              "Title": "Medicamentos.cs",
+              "DocumentMoniker": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\AlzheimerWebAPI\\Models\\Medicamentos.cs",
+              "RelativeDocumentMoniker": "AlzheimerWebAPI\\Models\\Medicamentos.cs",
+              "ToolTip": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\AlzheimerWebAPI\\Models\\Medicamentos.cs",
+              "RelativeToolTip": "AlzheimerWebAPI\\Models\\Medicamentos.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAswBUAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-28T05:01:30.846Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "FamiliaresController.cs",
               "DocumentMoniker": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\AlzheimerWebAPI\\Controllers\\FamiliaresController.cs",
               "RelativeDocumentMoniker": "AlzheimerWebAPI\\Controllers\\FamiliaresController.cs",
@@ -88,49 +97,24 @@
               "RelativeToolTip": "AlzheimerWebAPI\\Controllers\\FamiliaresController.cs",
               "ViewState": "AQIAACEAAAAAAAAAAAAYwAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-28T01:47:45.385Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-28T01:47:45.385Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "PacientesCuidadoresController.cs",
-              "DocumentMoniker": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\AlzheimerWebAPI\\Controllers\\PacientesCuidadoresController.cs",
-              "RelativeDocumentMoniker": "AlzheimerWebAPI\\Controllers\\PacientesCuidadoresController.cs",
-              "ToolTip": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\AlzheimerWebAPI\\Controllers\\PacientesCuidadoresController.cs",
-              "RelativeToolTip": "AlzheimerWebAPI\\Controllers\\PacientesCuidadoresController.cs",
-              "ViewState": "AQIAADEAAAAAAAAAAADwvzcAAAA/AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-27T04:04:08.927Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "MedicamentosController.cs",
-              "DocumentMoniker": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\AlzheimerWebAPI\\Controllers\\MedicamentosController.cs",
-              "RelativeDocumentMoniker": "AlzheimerWebAPI\\Controllers\\MedicamentosController.cs",
-              "ToolTip": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\AlzheimerWebAPI\\Controllers\\MedicamentosController.cs",
-              "RelativeToolTip": "AlzheimerWebAPI\\Controllers\\MedicamentosController.cs",
-              "ViewState": "AQIAAE4AAAAAAAAAAAAuwFwAAAAkAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-27T03:52:50.077Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
               "Title": "MedicamentosService.cs",
               "DocumentMoniker": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\AlzheimerWebAPI\\Services\\MedicamentosService.cs",
               "RelativeDocumentMoniker": "AlzheimerWebAPI\\Services\\MedicamentosService.cs",
               "ToolTip": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\AlzheimerWebAPI\\Services\\MedicamentosService.cs",
               "RelativeToolTip": "AlzheimerWebAPI\\Services\\MedicamentosService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AQIAACIAAAAAAAAAAAAkwAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-27T03:52:46.22Z"
+              "WhenOpened": "2024-05-27T03:52:46.22Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 5,
               "Title": "SensorDataController.cs",
               "DocumentMoniker": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\AlzheimerWebAPI\\Controllers\\SensorDataController.cs",
               "RelativeDocumentMoniker": "AlzheimerWebAPI\\Controllers\\SensorDataController.cs",
@@ -138,23 +122,25 @@
               "RelativeToolTip": "AlzheimerWebAPI\\Controllers\\SensorDataController.cs",
               "ViewState": "AQIAACYAAAAAAAAAAAAgwDIAAABHAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-23T03:02:24.794Z"
+              "WhenOpened": "2024-05-23T03:02:24.794Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 4,
               "Title": "UbicacionBackgroundService.cs",
               "DocumentMoniker": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\AlzheimerWebAPI\\Services\\UbicacionBackgroundService.cs",
               "RelativeDocumentMoniker": "AlzheimerWebAPI\\Services\\UbicacionBackgroundService.cs",
               "ToolTip": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\AlzheimerWebAPI\\Services\\UbicacionBackgroundService.cs",
               "RelativeToolTip": "AlzheimerWebAPI\\Services\\UbicacionBackgroundService.cs",
-              "ViewState": "AQIAAEYAAAAAAAAAAAAAAHMAAAANAAAA",
+              "ViewState": "AQIAADoAAAAAAAAAAAAuwHMAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-22T21:52:55.544Z"
+              "WhenOpened": "2024-05-22T21:52:55.544Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 7,
               "Title": "AlzheimerHub.cs",
               "DocumentMoniker": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\AlzheimerWebAPI\\Notifications\\AlzheimerHub.cs",
               "RelativeDocumentMoniker": "AlzheimerWebAPI\\Notifications\\AlzheimerHub.cs",
