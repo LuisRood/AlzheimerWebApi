@@ -29,11 +29,20 @@ namespace AlzheimerWebAPI.Repositories
         }
 
         // Obtener  Familiares del paciente
-        public async Task<List<PacientesFamiliares>> ObtenerFamiliares(string id)
+        public async Task<List<Familiares>> ObtenerFamiliares(string id)
         {
-            return await _context.PacientesFamiliares.Where(pf => pf.IdPaciente == id)
+            /*return await _context.PacientesFamiliares.Where(pf => pf.IdPaciente == id)
                 .Include(pf => pf.IdPacienteNavigation)
                 .Include(pf => pf.IdFamiliarNavigation)
+                .ToListAsync();*/
+            return await _context.Familiares.Join(
+                _context.PacientesFamiliares,
+                familiar => familiar.IdFamiliar,
+                pacienteFamiliar => pacienteFamiliar.IdFamiliar,
+                (familiar, pacienteFamiliar) => new { familiar, pacienteFamiliar }
+                )
+                .Where(joined => joined.pacienteFamiliar.IdPaciente == id)
+                .Select(joined => joined.familiar)
                 .ToListAsync();
         }
 
