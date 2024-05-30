@@ -69,7 +69,7 @@ namespace AlzheimerWebAPI.Services
         {
             try
             {
-                var response = await httpClient.GetAsync($"http://localhost:3000/mqtt-request/{mac}");
+                var response = await httpClient.GetAsync($"http://52.146.12.184:3000/mqtt-request/{mac}");
                 if (response.IsSuccessStatusCode)
                 {
                     var responseBody = await response.Content.ReadAsStringAsync();
