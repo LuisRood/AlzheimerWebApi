@@ -25,10 +25,11 @@ namespace AlzheimerWebAPI.Controllers
         }
 
         [HttpPost("CrearMedicamento")]
-        public async Task<IActionResult> CrearMedicamento([FromBody] Medicamentos nuevoMedicamento)
+        public async Task<IActionResult> CrearMedicamento([FromBody] MedicamentosDTO nuevoMedicamentoDTO)
         {
             _logger.LogInformation("Creando un nuevo medicamento.");
 
+            var nuevoMedicamento = new Medicamentos(nuevoMedicamentoDTO);
             var medicamentoCreado = await _medicamentosService.CrearMedicamento(nuevoMedicamento);
 
             return CreatedAtAction(nameof(ObtenerMedicamento), new { id = medicamentoCreado.IdMedicamento }, medicamentoCreado);

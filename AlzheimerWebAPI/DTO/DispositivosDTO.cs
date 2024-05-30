@@ -12,10 +12,6 @@ public class DispositivosDTO//(Dispositivo dispositivos)
 
     public Guid? IdGeocerca { get; set; } 
 
-    public virtual GeocercasDTO? IdGeocercaNavigation { get; set; } 
-
-    public virtual ICollection<UbicacionesDTO>? Ubicaciones { get; set; } 
-
     public DispositivosDTO()
     {
     }
@@ -23,11 +19,5 @@ public class DispositivosDTO//(Dispositivo dispositivos)
     {
         IdDispositivo = dispositivos.IdDispositivo;
         IdGeocerca = dispositivos.IdGeocerca;
-        if (dispositivos.IdGeocercaNavigation != null)
-        {
-            IdGeocercaNavigation = new GeocercasDTO(dispositivos.IdGeocercaNavigation);
-        }
-        Ubicaciones = dispositivos.Ubicaciones
-        .Select(u => new UbicacionesDTO(u)).ToList();
     }
 }

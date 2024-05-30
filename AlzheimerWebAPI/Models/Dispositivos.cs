@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace AlzheimerWebAPI.Models;
 
-public partial class Dispositivos
+public class Dispositivos
 {
     public string IdDispositivo { get; set; } = null!;
 
@@ -16,4 +16,12 @@ public partial class Dispositivos
     public virtual Pacientes? Paciente { get; set; }
 
     public virtual ICollection<Ubicaciones> Ubicaciones { get; set; } = new List<Ubicaciones>();
+
+    public Dispositivos() { }
+
+    public Dispositivos(DispositivosDTO dispositivoDTO)
+    {
+        IdDispositivo = dispositivoDTO.IdDispositivo;
+        IdGeocerca = dispositivoDTO.IdGeocerca;
+    }
 }

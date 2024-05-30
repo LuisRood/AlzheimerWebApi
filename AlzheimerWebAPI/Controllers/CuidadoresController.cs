@@ -1,4 +1,5 @@
-﻿using AlzheimerWebAPI.Models;
+﻿using AlzheimerWebAPI.DTO;
+using AlzheimerWebAPI.Models;
 using AlzheimerWebAPI.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -23,13 +24,14 @@ namespace AlzheimerWebAPI.Controllers
         }
 
         [HttpPost("CrearCuidador")]
-        public async Task<IActionResult> CrearCuidador([FromBody] Cuidadores nuevoCuidador)
+        public async Task<IActionResult> CrearCuidador([FromBody] CuidadoresDTO nuevoCuidadorDTO)
         {
             _logger.LogInformation("Creando un nuevo cuidador.");
 
+            var nuevoCuidador = new Cuidadores(nuevoCuidadorDTO);
             var cuidadorCreado = await _cuidadoresService.CrearCuidador(nuevoCuidador);
-
-            return CreatedAtAction(nameof(ObtenerCuidador), new { id = cuidadorCreado.IdCuidador }, cuidadorCreado);
+            return Ok(cuidadorCreado);
+            //return CreatedAtAction(nameof(ObtenerCuidador), new { id = cuidadorCreado.IdCuidador }, cuidadorCreado);
         }
 
         [HttpGet("cuidadores/{id}")]
@@ -48,10 +50,11 @@ namespace AlzheimerWebAPI.Controllers
         }
 
         [HttpPut("cuidadores/{id}")]
-        public async Task<IActionResult> ActualizarCuidador(Guid id, [FromBody] Cuidadores cuidadorActualizado)
+        public async Task<IActionResult> ActualizarCuidador(Guid id, [FromBody] CuidadoresDTO cuidadorActualizadoDTO)
         {
             _logger.LogInformation($"Actualizando cuidador con ID: {id}");
 
+            var cuidadorActualizado = new Cuidadores(cuidadorActualizadoDTO);
             var cuidador = await _cuidadoresService.ActualizarCuidador(id, cuidadorActualizado);
 
             if (cuidador == null)

@@ -24,13 +24,14 @@ namespace AlzheimerWebAPI.Controllers
         }
 
         [HttpPost("CrearDispositivo")]
-        public async Task<IActionResult> CrearDispositivo([FromBody] Dispositivos nuevoDispositivo)
+        public async Task<IActionResult> CrearDispositivo([FromBody] DispositivosDTO nuevoDispositivoDTO)
         {
             _logger.LogInformation("Creando un nuevo dispositivo.");
-
+            var nuevoDispositivo = new Dispositivos(nuevoDispositivoDTO);
             var dispositivoCreado = await _dispositivosService.CrearDispositivo(nuevoDispositivo);
 
-            return CreatedAtAction(nameof(ObtenerDispositivo), new { id = dispositivoCreado.IdDispositivo }, dispositivoCreado);
+            return Ok(dispositivoCreado);
+           // return CreatedAtAction(nameof(ObtenerDispositivo), new { id = dispositivoCreado.IdDispositivo }, dispositivoCreado);
         }
 
         [HttpGet("dispositivos/{id}")]
@@ -70,10 +71,12 @@ namespace AlzheimerWebAPI.Controllers
         {
             _logger.LogInformation($"Actualizando dispositivo con ID: {id}");
 
-            var dispositivoActualizado = new Dispositivos
+            var dispositivoActualizado = new Dispositivos(dispositivoActualizadoDTO);
+
+            /*var dispositivoActualizado = new Dispositivos
             {
                 IdGeocerca = dispositivoActualizadoDTO.IdGeocerca
-            };
+            };*/
 
             var dispositivo = await _dispositivosService.ActualizarDispositivo(id, dispositivoActualizado);
 

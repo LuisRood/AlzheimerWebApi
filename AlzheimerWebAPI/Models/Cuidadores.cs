@@ -1,9 +1,10 @@
-﻿using System;
+﻿using AlzheimerWebAPI.DTO;
+using System;
 using System.Collections.Generic;
 
 namespace AlzheimerWebAPI.Models;
 
-public partial class Cuidadores
+public class Cuidadores
 {
     public Guid IdCuidador { get; set; }
 
@@ -16,4 +17,13 @@ public partial class Cuidadores
     public virtual Usuarios IdUsuarioNavigation { get; set; } = null!;
 
     public virtual ICollection<PacientesCuidadores> PacientesCuidadores { get; set; } = new List<PacientesCuidadores>();
+
+    public Cuidadores() { }
+
+    public Cuidadores(CuidadoresDTO cuidadorDTO)
+    {
+        IdCuidador = cuidadorDTO.IdCuidador;
+        IdUsuario = cuidadorDTO.IdUsuario;
+        IdFamiliar = cuidadorDTO.IdFamiliar;
+    }
 }

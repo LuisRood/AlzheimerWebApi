@@ -1,4 +1,5 @@
-﻿using AlzheimerWebAPI.Models;
+﻿using AlzheimerWebAPI.DTO;
+using AlzheimerWebAPI.Models;
 using AlzheimerWebAPI.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -23,13 +24,15 @@ namespace AlzheimerWebAPI.Controllers
         }
 
         [HttpPost("CrearFamiliar")]
-        public async Task<IActionResult> CrearFamiliar([FromBody] Familiares nuevoFamiliar)
+        public async Task<IActionResult> CrearFamiliar([FromBody] FamiliaresDTO nuevoFamiliarDTO)
         {
             _logger.LogInformation("Creando un nuevo familiar.");
 
+            var nuevoFamiliar = new Familiares(nuevoFamiliarDTO);
             var familiarCreado = await _familiaresService.CrearFamiliar(nuevoFamiliar);
 
-            return CreatedAtAction(nameof(ObtenerFamiliar), new { id = familiarCreado.IdFamiliar }, familiarCreado);
+            return Ok(familiarCreado);
+            //return CreatedAtAction(nameof(ObtenerFamiliar), new { id = familiarCreado.IdFamiliar }, familiarCreado);
         }
 
         [HttpGet("familiares/{id}")]
@@ -48,10 +51,11 @@ namespace AlzheimerWebAPI.Controllers
         }
 
         [HttpPut("familiares/{id}")]
-        public async Task<IActionResult> ActualizarFamiliar(Guid id, [FromBody] Familiares familiarActualizado)
+        public async Task<IActionResult> ActualizarFamiliar(Guid id, [FromBody] FamiliaresDTO familiarActualizadoDTO)
         {
             _logger.LogInformation($"Actualizando familiar con ID: {id}");
 
+            var familiarActualizado = new Familiares(familiarActualizadoDTO);
             var familiar = await _familiaresService.ActualizarFamiliar(id, familiarActualizado);
 
             if (familiar == null)

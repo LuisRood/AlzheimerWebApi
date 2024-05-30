@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AlzheimerWebAPI.DTO;
+using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
@@ -16,4 +17,12 @@ public partial class Familiares
     public virtual Usuarios IdUsuarioNavigation { get; set; } = null!;
 
     public virtual ICollection<PacientesFamiliares> PacientesFamiliares { get; set; } = new List<PacientesFamiliares>();
+
+    public Familiares() { }
+
+    public Familiares(FamiliaresDTO familiarDTO)
+    {
+        IdFamiliar = familiarDTO.IdFamiliar;
+        IdUsuario = familiarDTO.IdUsuario;
+    }
 }

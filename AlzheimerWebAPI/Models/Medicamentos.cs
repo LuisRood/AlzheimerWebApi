@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AlzheimerWebAPI.DTO;
+using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
@@ -18,4 +19,15 @@ public partial class Medicamentos
 
     [JsonIgnore]
     public virtual Pacientes IdPacienteNavigation { get; set; } = null!;
+
+    public Medicamentos() { }
+
+    public Medicamentos(MedicamentosDTO medicamentoDTO)
+    {
+        IdMedicamento = medicamentoDTO.IdMedicamento;
+        Nombre = medicamentoDTO.Nombre;
+        Gramaje = medicamentoDTO.Gramaje;
+        Descripcion = medicamentoDTO.Descripcion;
+        IdPaciente = medicamentoDTO.IdPaciente;
+    }
 }
