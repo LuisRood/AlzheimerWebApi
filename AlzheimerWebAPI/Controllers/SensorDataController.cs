@@ -80,7 +80,7 @@ namespace AlzheimerWebAPI.Controllers
                 }
 
                 // Hacer una solicitud GET al servidor externo
-                var externalServerUrl = $"http://localhost:3000/mqtt-request/{mac}";
+                var externalServerUrl = $"http://52.146.12.184:3000/mqtt-request/{mac}";
                 var responseFromExternalServer = await _httpClient.GetAsync(externalServerUrl);
 
                 if (responseFromExternalServer.IsSuccessStatusCode)

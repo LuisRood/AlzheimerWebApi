@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "kibn9YCe0hOFTblQkB9t0sQskdmIHktkSDLwr8tbqfU=",
+  "Source": "AlzheimerWebAPI",
+  "BasePath": "_content/AlzheimerWebAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
