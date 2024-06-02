@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NetTopologySuite.Geometries;
 using System;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace AlzheimerWebAPI.Controllers
@@ -24,9 +25,13 @@ namespace AlzheimerWebAPI.Controllers
         }
 
         [HttpPost("CrearGeocerca")]
-        public async Task<IActionResult> CrearGeocerca([FromBody] GeocercasDTO nuevaGeocercaDTO)
+        public async Task<IActionResult> CrearGeocerca()//[FromBody] GeocercasDTO nuevaGeocercaDTO)
         {
             _logger.LogInformation("Creando nueva Geocerca.");
+
+            using var reader = new StreamReader(HttpContext.Request.Body);
+            var requestBody = await reader.ReadToEndAsync();
+            var nuevaGeocercaDTO = JsonSerializer.Deserialize<GeocercasDTO>(requestBody);
 
             var nuevaGeocerca = new Geocercas
             {
@@ -60,9 +65,13 @@ namespace AlzheimerWebAPI.Controllers
         }
 
         [HttpPut("geocercas/{id}")]
-        public async Task<IActionResult> ActualizarGeocerca(Guid id, [FromBody] GeocercasDTO geocercaActualizadaDTO)
+        public async Task<IActionResult> ActualizarGeocerca(Guid id)//, [FromBody] GeocercasDTO geocercaActualizadaDTO)
         {
             _logger.LogInformation($"Actualizando geocerca con ID: {id}");
+
+            using var reader = new StreamReader(HttpContext.Request.Body);
+            var requestBody = await reader.ReadToEndAsync();
+            var geocercaActualizadaDTO = JsonSerializer.Deserialize<GeocercasDTO>(requestBody);
 
             var geocercaActualizada = new Geocercas
             {

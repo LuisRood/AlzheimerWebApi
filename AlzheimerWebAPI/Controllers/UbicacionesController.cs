@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NetTopologySuite.Geometries;
 using System;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace AlzheimerWebAPI.Controllers
@@ -24,9 +25,13 @@ namespace AlzheimerWebAPI.Controllers
         }
 
         [HttpPost("CrearUbicacion")]
-        public async Task<IActionResult> CrearUbicacion([FromBody] UbicacionesDTO nuevaUbicacionDTO)
+        public async Task<IActionResult> CrearUbicacion()//[FromBody] UbicacionesDTO nuevaUbicacionDTO)
         {
             _logger.LogInformation("Creando una nueva ubicación.");
+
+            using var reader = new StreamReader(HttpContext.Request.Body);
+            var requestBody = await reader.ReadToEndAsync();
+            var nuevaUbicacionDTO = JsonSerializer.Deserialize<UbicacionesDTO>(requestBody);
 
             var nuevaUbicacion = new Ubicaciones
             {
@@ -38,7 +43,8 @@ namespace AlzheimerWebAPI.Controllers
 
             var ubicacionCreada = await _ubicacionesService.CrearUbicacion(nuevaUbicacion);
 
-            return CreatedAtAction(nameof(ObtenerUbicacion), new { id = ubicacionCreada.IdUbicacion }, ubicacionCreada);
+            return Ok(ubicacionCreada);
+            //return CreatedAtAction(nameof(ObtenerUbicacion), new { id = ubicacionCreada.IdUbicacion }, ubicacionCreada);
         }
 
         [HttpGet("ubicaciones/{id}")]
@@ -74,9 +80,13 @@ namespace AlzheimerWebAPI.Controllers
         }
 
         [HttpPut("ubicaciones/{id}")]
-        public async Task<IActionResult> ActualizarUbicacion(Guid id, [FromBody] UbicacionesDTO ubicacionActualizadaDTO)
+        public async Task<IActionResult> ActualizarUbicacion(Guid id)//, [FromBody] UbicacionesDTO ubicacionActualizadaDTO)
         {
             _logger.LogInformation($"Actualizando ubicación con ID: {id}");
+
+            using var reader = new StreamReader(HttpContext.Request.Body);
+            var requestBody = await reader.ReadToEndAsync();
+            var ubicacionActualizadaDTO = JsonSerializer.Deserialize<UbicacionesDTO>(requestBody);
 
             var ubicacionActualizada = new Ubicaciones
             {

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace AlzheimerWebAPI.Controllers
@@ -25,14 +26,19 @@ namespace AlzheimerWebAPI.Controllers
         }
 
         [HttpPost("CrearMedicamento")]
-        public async Task<IActionResult> CrearMedicamento([FromBody] MedicamentosDTO nuevoMedicamentoDTO)
+        public async Task<IActionResult> CrearMedicamento()//[FromBody] MedicamentosDTO nuevoMedicamentoDTO)
         {
             _logger.LogInformation("Creando un nuevo medicamento.");
 
-            var nuevoMedicamento = new Medicamentos(nuevoMedicamentoDTO);
+            using var reader = new StreamReader(HttpContext.Request.Body);
+            var requestBody = await reader.ReadToEndAsync();
+            var nuevoMedicamento = JsonSerializer.Deserialize<Medicamentos>(requestBody);
+
+            //var nuevoMedicamento = new Medicamentos(nuevoMedicamentoDTO);
             var medicamentoCreado = await _medicamentosService.CrearMedicamento(nuevoMedicamento);
 
-            return CreatedAtAction(nameof(ObtenerMedicamento), new { id = medicamentoCreado.IdMedicamento }, medicamentoCreado);
+            return Ok(medicamentoCreado);
+            //return CreatedAtAction(nameof(ObtenerMedicamento), new { id = medicamentoCreado.IdMedicamento }, medicamentoCreado);
         }
 
         [HttpGet("medicamentos/{id}")]
@@ -52,18 +58,22 @@ namespace AlzheimerWebAPI.Controllers
 
 
         [HttpPut("medicamentos/{id}")]
-        public async Task<IActionResult> ActualizarMedicamento(Guid id, [FromBody] MedicamentosDTO medicamentoActualizadoDTO)
+        public async Task<IActionResult> ActualizarMedicamento(Guid id)//, [FromBody] MedicamentosDTO medicamentoActualizadoDTO)
         {
             _logger.LogInformation($"Actualizando medicamento con ID: {id}");
 
-            Medicamentos medicamentoActualizado = new()
+            using var reader = new StreamReader(HttpContext.Request.Body);
+            var requestBody = await reader.ReadToEndAsync();
+            var medicamentoActualizado = JsonSerializer.Deserialize<Medicamentos>(requestBody);
+
+            /*Medicamentos medicamentoActualizado = new()
             {
                 IdMedicamento = medicamentoActualizadoDTO.IdMedicamento,
                 Nombre = medicamentoActualizadoDTO.Nombre,
                 Gramaje = medicamentoActualizadoDTO.Gramaje,
                 Descripcion = medicamentoActualizadoDTO.Descripcion,
                 IdPaciente = medicamentoActualizadoDTO.IdPaciente
-            };
+            };*/
 
             var medicamento = await _medicamentosService.ActualizarMedicamento(id, medicamentoActualizado);
 

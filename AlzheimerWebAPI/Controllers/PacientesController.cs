@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace AlzheimerWebAPI.Controllers
@@ -24,15 +25,20 @@ namespace AlzheimerWebAPI.Controllers
         }
 
         [HttpPost("CrearPaciente")]
-        public async Task<IActionResult> CrearPaciente([FromBody] Pacientes nuevoPaciente)
+        public async Task<IActionResult> CrearPaciente()//[FromBody] Pacientes nuevoPaciente)
         {
             _logger.LogInformation("Creando un nuevo paciente.");
+
+            using var reader = new StreamReader(HttpContext.Request.Body);
+            var requestBody = await reader.ReadToEndAsync();
+            var nuevoPaciente = JsonSerializer.Deserialize<Pacientes>(requestBody);
 
             var pacienteCreado = await _pacientesService.CrearPaciente(nuevoPaciente);
 
             var pacienteCreadoDTO = new PacientesDTO(pacienteCreado);
 
-            return CreatedAtAction(nameof(ObtenerPaciente), new { id = pacienteCreadoDTO.IdPaciente }, pacienteCreadoDTO);
+            return Ok(pacienteCreadoDTO);
+            //return CreatedAtAction(nameof(ObtenerPaciente), new { id = pacienteCreadoDTO.IdPaciente }, pacienteCreadoDTO);
         }
 
         [HttpGet("pacientes/{id}")]
@@ -67,16 +73,20 @@ namespace AlzheimerWebAPI.Controllers
         }
 
         [HttpPut("pacientes/{id}")]
-        public async Task<IActionResult> ActualizarPaciente(string id, [FromBody] PacientesDTO pacienteActualizadoDTO)
+        public async Task<IActionResult> ActualizarPaciente(string id)//, [FromBody] PacientesDTO pacienteActualizadoDTO)
         {
             _logger.LogInformation($"Actualizando paciente con ID: {id}");
 
-            var pacienteActualizado = new Pacientes
+            using var reader = new StreamReader(HttpContext.Request.Body);
+            var requestBody = await reader.ReadToEndAsync();
+            var pacienteActualizado = JsonSerializer.Deserialize<Pacientes>(requestBody);
+
+            /*var pacienteActualizado = new Pacientes
             {
                 IdPaciente = pacienteActualizadoDTO.IdPaciente,
                 IdDispositivo = pacienteActualizadoDTO.IdDispositivo,
                 IdPersona = pacienteActualizadoDTO.IdPersona
-            };
+            };*/
 
             var paciente = await _pacientesService.ActualizarPaciente(id, pacienteActualizado);
 

@@ -3,6 +3,7 @@ using AlzheimerWebAPI.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace AlzheimerWebAPI.Controllers
@@ -22,13 +23,18 @@ namespace AlzheimerWebAPI.Controllers
         }
 
         [HttpPost("CrearTipoUsuario")]
-        public async Task<IActionResult> CrearTipoUsuario([FromBody] TiposUsuarios nuevoTipoUsuario)
+        public async Task<IActionResult> CrearTipoUsuario()//[FromBody] TiposUsuarios nuevoTipoUsuario)
         {
             _logger.LogInformation("Creando un nuevo tipo de usuario.");
 
+            using var reader = new StreamReader(HttpContext.Request.Body);
+            var requestBody = await reader.ReadToEndAsync();
+            var nuevoTipoUsuario = JsonSerializer.Deserialize<TiposUsuarios>(requestBody);
+
             var tipoUsuarioCreado = await _tiposUsuariosService.CrearTipoUsuario(nuevoTipoUsuario);
 
-            return CreatedAtAction(nameof(ObtenerTipoUsuarioPorTipo), new { tipo = tipoUsuarioCreado.TipoUsuario }, tipoUsuarioCreado);
+            return Ok(tipoUsuarioCreado);
+            //return CreatedAtAction(nameof(ObtenerTipoUsuarioPorTipo), new { tipo = tipoUsuarioCreado.TipoUsuario }, tipoUsuarioCreado);
         }
 
         [HttpGet("tiposusuarios/{tipo}")]
@@ -47,9 +53,13 @@ namespace AlzheimerWebAPI.Controllers
         }
 
         [HttpPut("tiposusuarios/{id}")]
-        public async Task<IActionResult> ActualizarTipoUsuario(Guid id, [FromBody] TiposUsuarios tipoUsuarioActualizado)
+        public async Task<IActionResult> ActualizarTipoUsuario(Guid id)//, [FromBody] TiposUsuarios tipoUsuarioActualizado)
         {
             _logger.LogInformation($"Actualizando tipo de usuario con ID: {id}");
+
+            using var reader = new StreamReader(HttpContext.Request.Body);
+            var requestBody = await reader.ReadToEndAsync();
+            var tipoUsuarioActualizado = JsonSerializer.Deserialize<TiposUsuarios>(requestBody);
 
             var tipoUsuario = await _tiposUsuariosService.ActualizarTipoUsuario(id, tipoUsuarioActualizado);
 

@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace AlzheimerWebAPI.Controllers
@@ -24,9 +25,14 @@ namespace AlzheimerWebAPI.Controllers
         }
 
         [HttpPost("CrearDispositivo")]
-        public async Task<IActionResult> CrearDispositivo([FromBody] DispositivosDTO nuevoDispositivoDTO)
+        public async Task<IActionResult> CrearDispositivo()//[FromBody] DispositivosDTO nuevoDispositivoDTO)
         {
             _logger.LogInformation("Creando un nuevo dispositivo.");
+
+            using var reader = new StreamReader(HttpContext.Request.Body);
+            var requestBody = await reader.ReadToEndAsync();
+            var nuevoDispositivoDTO = JsonSerializer.Deserialize<DispositivosDTO>(requestBody);
+
             var nuevoDispositivo = new Dispositivos(nuevoDispositivoDTO);
             var dispositivoCreado = await _dispositivosService.CrearDispositivo(nuevoDispositivo);
 
@@ -67,9 +73,14 @@ namespace AlzheimerWebAPI.Controllers
         }
 
         [HttpPut("dispositivos/{id}")]
-        public async Task<IActionResult> ActualizarDispositivo(string id, [FromBody] DispositivosDTO dispositivoActualizadoDTO)
+        public async Task<IActionResult> ActualizarDispositivo(string id)//, [FromBody] DispositivosDTO dispositivoActualizadoDTO)
         {
             _logger.LogInformation($"Actualizando dispositivo con ID: {id}");
+
+            using var reader = new StreamReader(HttpContext.Request.Body);
+            var requestBody = await reader.ReadToEndAsync();
+            var dispositivoActualizadoDTO = JsonSerializer.Deserialize<DispositivosDTO>(requestBody);
+
 
             var dispositivoActualizado = new Dispositivos(dispositivoActualizadoDTO);
 

@@ -1,4 +1,5 @@
-﻿using AlzheimerWebAPI.Models;
+﻿using AlzheimerWebAPI.DTO;
+using AlzheimerWebAPI.Models;
 using AlzheimerWebAPI.Notifications;
 using AlzheimerWebAPI.Repositories;
 using AlzheimerWebAPI.Services;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace AlzheimerWebAPI.Controllers
@@ -41,9 +43,13 @@ namespace AlzheimerWebAPI.Controllers
         }
 
         [HttpPost("CrearUsuario")]
-        public async Task<IActionResult> CrearUsuario([FromBody] Users nuevoUser)
+        public async Task<IActionResult> CrearUsuario()//[FromBody] Users nuevoUser)
         {
             _logger.LogInformation("Creando un nuevo usuario.");
+
+            using var reader = new StreamReader(HttpContext.Request.Body);
+            var requestBody = await reader.ReadToEndAsync();
+            var nuevoUser = JsonSerializer.Deserialize<Users>(requestBody);
 
             Personas persona = await _personasService.CrearPersona(nuevoUser.Persona);
             Usuarios usuarioCreado = new Usuarios();
@@ -116,9 +122,13 @@ namespace AlzheimerWebAPI.Controllers
         }
 
         [HttpPut("usuarios/{id}")]
-        public async Task<IActionResult> ActualizarUsuario(Guid id, [FromBody] Users actualizarUser)
+        public async Task<IActionResult> ActualizarUsuario(Guid id)//, [FromBody] Users actualizarUser)
         {
             _logger.LogInformation($"Actualizando usuario con ID: {id}");
+
+            using var reader = new StreamReader(HttpContext.Request.Body);
+            var requestBody = await reader.ReadToEndAsync();
+            var actualizarUser = JsonSerializer.Deserialize<Users>(requestBody);
 
             Personas personas = await _personasService.ActualizarPersona(actualizarUser.Persona.IdPersona, actualizarUser.Persona);
             var usuarioActualizado = await _usuariosService.ActualizarUsuario(actualizarUser.Usuario.IdUsuario, actualizarUser.Usuario);

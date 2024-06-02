@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace AlzheimerWebAPI.Controllers
@@ -24,11 +25,15 @@ namespace AlzheimerWebAPI.Controllers
         }
 
         [HttpPost("CrearCuidador")]
-        public async Task<IActionResult> CrearCuidador([FromBody] CuidadoresDTO nuevoCuidadorDTO)
+        public async Task<IActionResult> CrearCuidador()//[FromBody] CuidadoresDTO nuevoCuidadorDTO)
         {
             _logger.LogInformation("Creando un nuevo cuidador.");
 
-            var nuevoCuidador = new Cuidadores(nuevoCuidadorDTO);
+            using var reader = new StreamReader(HttpContext.Request.Body);
+            var requestBody = await reader.ReadToEndAsync();
+            var nuevoCuidador = JsonSerializer.Deserialize<Cuidadores>(requestBody);
+
+            //var nuevoCuidador = new Cuidadores(nuevoCuidadorDTO);
             var cuidadorCreado = await _cuidadoresService.CrearCuidador(nuevoCuidador);
             return Ok(cuidadorCreado);
             //return CreatedAtAction(nameof(ObtenerCuidador), new { id = cuidadorCreado.IdCuidador }, cuidadorCreado);
@@ -50,11 +55,15 @@ namespace AlzheimerWebAPI.Controllers
         }
 
         [HttpPut("cuidadores/{id}")]
-        public async Task<IActionResult> ActualizarCuidador(Guid id, [FromBody] CuidadoresDTO cuidadorActualizadoDTO)
+        public async Task<IActionResult> ActualizarCuidador(Guid id)//, [FromBody] CuidadoresDTO cuidadorActualizadoDTO)
         {
             _logger.LogInformation($"Actualizando cuidador con ID: {id}");
 
-            var cuidadorActualizado = new Cuidadores(cuidadorActualizadoDTO);
+            using var reader = new StreamReader(HttpContext.Request.Body);
+            var requestBody = await reader.ReadToEndAsync();
+            var cuidadorActualizado = JsonSerializer.Deserialize<Cuidadores>(requestBody);
+
+            //var cuidadorActualizado = new Cuidadores(cuidadorActualizadoDTO);
             var cuidador = await _cuidadoresService.ActualizarCuidador(id, cuidadorActualizado);
 
             if (cuidador == null)

@@ -3,6 +3,7 @@ using AlzheimerWebAPI.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace AlzheimerWebAPI.Controllers
@@ -22,13 +23,18 @@ namespace AlzheimerWebAPI.Controllers
         }
 
         [HttpPost("CrearPersona")]
-        public async Task<IActionResult> CrearPersona([FromBody] Personas nuevaPersona)
+        public async Task<IActionResult> CrearPersona()//[FromBody] Personas nuevaPersona)
         {
             _logger.LogInformation("Creando una nueva persona.");
 
+            using var reader = new StreamReader(HttpContext.Request.Body);
+            var requestBody = await reader.ReadToEndAsync();
+            var nuevaPersona = JsonSerializer.Deserialize<Personas>(requestBody);
+
             var personaCreada = await _personasService.CrearPersona(nuevaPersona);
 
-            return CreatedAtAction(nameof(ObtenerPersona), new { id = personaCreada.IdPersona }, personaCreada);
+            return Ok(personaCreada);
+            //return CreatedAtAction(nameof(ObtenerPersona), new { id = personaCreada.IdPersona }, personaCreada);
         }
 
         [HttpGet("personas/{id}")]
@@ -47,9 +53,13 @@ namespace AlzheimerWebAPI.Controllers
         }
 
         [HttpPut("personas/{id}")]
-        public async Task<IActionResult> ActualizarPersona(Guid id, [FromBody] Personas personaActualizada)
+        public async Task<IActionResult> ActualizarPersona(Guid id)//, [FromBody] Personas personaActualizada)
         {
             _logger.LogInformation($"Actualizando persona con ID: {id}");
+
+            using var reader = new StreamReader(HttpContext.Request.Body);
+            var requestBody = await reader.ReadToEndAsync();
+            var personaActualizada = JsonSerializer.Deserialize<Personas>(requestBody);
 
             var persona = await _personasService.ActualizarPersona(id, personaActualizada);
 

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace AlzheimerWebAPI.Controllers
@@ -25,13 +26,18 @@ namespace AlzheimerWebAPI.Controllers
         }
 
         [HttpPost("CrearRelacion")]
-        public async Task<IActionResult> CrearRelacion([FromBody] PacientesCuidadores nuevoPacienteCuidador)
+        public async Task<IActionResult> CrearRelacion()//[FromBody] PacientesCuidadores nuevoPacienteCuidador)
         {
             _logger.LogInformation("Creando una nueva relación paciente-cuidador.");
 
+            using var reader = new StreamReader(HttpContext.Request.Body);
+            var requestBody = await reader.ReadToEndAsync();
+            var nuevoPacienteCuidador = JsonSerializer.Deserialize<PacientesCuidadores>(requestBody);
+
             var pacienteCuidadorCreado = await _pacientesCuidadoresService.CrearRelacion(nuevoPacienteCuidador);
 
-            return CreatedAtAction(nameof(CrearRelacion), new { id = pacienteCuidadorCreado.IdCuidaPaciente }, pacienteCuidadorCreado);
+            return Ok(pacienteCuidadorCreado);
+            //return CreatedAtAction(nameof(CrearRelacion), new { id = pacienteCuidadorCreado.IdCuidaPaciente }, pacienteCuidadorCreado);
         }
 
         [HttpGet("pacientescuidadores/{id}")]
@@ -64,9 +70,13 @@ namespace AlzheimerWebAPI.Controllers
         }
 
         [HttpPut("pacientescuidadores/{id}")]
-        public async Task<IActionResult> ActualizarRelacion(Guid id, [FromBody] PacientesCuidadores pacienteCuidadorActualizado)
+        public async Task<IActionResult> ActualizarRelacion(Guid id)//, [FromBody] PacientesCuidadores pacienteCuidadorActualizado)
         {
             _logger.LogInformation($"Actualizando relación paciente-cuidador con ID: {id}");
+
+            using var reader = new StreamReader(HttpContext.Request.Body);
+            var requestBody = await reader.ReadToEndAsync();
+            var pacienteCuidadorActualizado = JsonSerializer.Deserialize<PacientesCuidadores>(requestBody);
 
             var pacienteCuidador = await _pacientesCuidadoresService.ActualizarRelacion(id, pacienteCuidadorActualizado);
 

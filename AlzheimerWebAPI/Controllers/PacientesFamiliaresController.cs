@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace AlzheimerWebAPI.Controllers
@@ -23,13 +24,18 @@ namespace AlzheimerWebAPI.Controllers
         }
 
         [HttpPost("CrearRelacionFamiliares")]
-        public async Task<IActionResult> CrearRelacion([FromBody] PacientesFamiliares nuevaRelacion)
+        public async Task<IActionResult> CrearRelacion()//[FromBody] PacientesFamiliares nuevaRelacion)
         {
             _logger.LogInformation("Creando una nueva relación Pacientes-Familiares.");
 
+            using var reader = new StreamReader(HttpContext.Request.Body);
+            var requestBody = await reader.ReadToEndAsync();
+            var nuevaRelacion = JsonSerializer.Deserialize<PacientesFamiliares>(requestBody);
+
             var relacionCreada = await _pacientesFamiliaresService.CrearRelacion(nuevaRelacion);
 
-            return CreatedAtAction(nameof(ObtenerRelacion), new { id = relacionCreada.IdPacienteFamiliar }, relacionCreada);
+            return Ok(relacionCreada);
+            //return CreatedAtAction(nameof(ObtenerRelacion), new { id = relacionCreada.IdPacienteFamiliar }, relacionCreada);
         }
 
         [HttpGet("pacientesfamiliares/{id}")]
@@ -63,9 +69,13 @@ namespace AlzheimerWebAPI.Controllers
         }
 
         [HttpPut("pacientesfamiliares/{id}")]
-        public async Task<IActionResult> ActualizarRelacion(Guid id, [FromBody] PacientesFamiliares relacionActualizada)
+        public async Task<IActionResult> ActualizarRelacion(Guid id)//, [FromBody] PacientesFamiliares relacionActualizada)
         {
             _logger.LogInformation($"Actualizando relación Pacientes-Familiares con ID: {id}");
+
+            using var reader = new StreamReader(HttpContext.Request.Body);
+            var requestBody = await reader.ReadToEndAsync();
+            var relacionActualizada = JsonSerializer.Deserialize<PacientesFamiliares>(requestBody);
 
             var relacion = await _pacientesFamiliaresService.ActualizarRelacion(id, relacionActualizada);
 

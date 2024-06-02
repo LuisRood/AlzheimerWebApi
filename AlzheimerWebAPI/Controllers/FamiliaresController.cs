@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace AlzheimerWebAPI.Controllers
@@ -24,11 +25,15 @@ namespace AlzheimerWebAPI.Controllers
         }
 
         [HttpPost("CrearFamiliar")]
-        public async Task<IActionResult> CrearFamiliar([FromBody] FamiliaresDTO nuevoFamiliarDTO)
+        public async Task<IActionResult> CrearFamiliar()//[FromBody] FamiliaresDTO nuevoFamiliarDTO)
         {
             _logger.LogInformation("Creando un nuevo familiar.");
 
-            var nuevoFamiliar = new Familiares(nuevoFamiliarDTO);
+            using var reader = new StreamReader(HttpContext.Request.Body);
+            var requestBody = await reader.ReadToEndAsync();
+            var nuevoFamiliar = JsonSerializer.Deserialize<Familiares>(requestBody);
+
+            //var nuevoFamiliar = new Familiares(nuevoFamiliarDTO);
             var familiarCreado = await _familiaresService.CrearFamiliar(nuevoFamiliar);
 
             return Ok(familiarCreado);
@@ -51,11 +56,15 @@ namespace AlzheimerWebAPI.Controllers
         }
 
         [HttpPut("familiares/{id}")]
-        public async Task<IActionResult> ActualizarFamiliar(Guid id, [FromBody] FamiliaresDTO familiarActualizadoDTO)
+        public async Task<IActionResult> ActualizarFamiliar(Guid id)//, [FromBody] FamiliaresDTO familiarActualizadoDTO)
         {
             _logger.LogInformation($"Actualizando familiar con ID: {id}");
 
-            var familiarActualizado = new Familiares(familiarActualizadoDTO);
+            using var reader = new StreamReader(HttpContext.Request.Body);
+            var requestBody = await reader.ReadToEndAsync();
+            var familiarActualizado = JsonSerializer.Deserialize<Familiares>(requestBody);
+
+            //var familiarActualizado = new Familiares(familiarActualizadoDTO);
             var familiar = await _familiaresService.ActualizarFamiliar(id, familiarActualizado);
 
             if (familiar == null)
