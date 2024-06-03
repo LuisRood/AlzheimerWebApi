@@ -9,12 +9,14 @@ using Microsoft.AspNetCore.SignalR;
 using AlzheimerWebAPI.Models;
 using AlzheimerWebAPI.Notifications;
 using AlzheimerWebAPI.Repositories;
+using NetTopologySuite.Geometries;
 
 namespace AlzheimerWebAPI.Services
 {
     public class UbicacionBackgroundService : IHostedService, IDisposable
     {
         private readonly ILogger<UbicacionBackgroundService> _logger;
+        private readonly UbicacionesService _ubicacionesService;
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IHubContext<AlzheimerHub> _hubContext;
         private readonly IServiceScopeFactory _scopeFactory;
@@ -24,12 +26,14 @@ namespace AlzheimerWebAPI.Services
             ILogger<UbicacionBackgroundService> logger,
             IHttpClientFactory httpClientFactory,
             IHubContext<AlzheimerHub> hubContext,
-            IServiceScopeFactory scopeFactory)
+            IServiceScopeFactory scopeFactory,
+            UbicacionesService ubicacionesService)
         {
             _logger = logger;
             _httpClientFactory = httpClientFactory;
             _hubContext = hubContext;
             _scopeFactory = scopeFactory;
+            _ubicacionesService = ubicacionesService;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
@@ -77,10 +81,13 @@ namespace AlzheimerWebAPI.Services
 
                     DateTime fechaHora = (sensorData.Fecha ?? DateTime.MinValue).Date;
                     fechaHora = fechaHora.Add(sensorData.Hora ?? TimeSpan.Zero);
+                    // Convertir fechaHora a la zona horaria de México
+                    TimeZoneInfo mexicoTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time");
+                    DateTime fechaHoraMexico = TimeZoneInfo.ConvertTimeFromUtc(fechaHora.ToUniversalTime(), mexicoTimeZone);
                     Ubicaciones ubicaciones = new()
                     {
-                        Ubicacion = new NetTopologySuite.Geometries.Point((double)sensorData.Longitud!, (double)sensorData.Latitud!) { SRID = 4326 },
-                        FechaHora = fechaHora,
+                        Ubicacion = new Point((double)sensorData.Longitud!, (double)sensorData.Latitud!) { SRID = 4326 },
+                        FechaHora = fechaHoraMexico,
                         IdDispositivo = sensorData.Mac,
                     };
 
@@ -96,10 +103,10 @@ namespace AlzheimerWebAPI.Services
                     if (await ubicacionesService.CheckIfOutsideGeofence(sensorData.Mac,ubicaciones))
                     {
                         _logger.LogInformation("Fuera de zona segura");
-                        await _hubContext.Clients.Group(sensorData.Mac).SendAsync("ReceiveLocationOut", sensorData.Mac, sensorData.Latitud, sensorData.Longitud, fechaHora.ToString());
+                        await _hubContext.Clients.Group(sensorData.Mac).SendAsync("ReceiveLocationOut", sensorData.Mac, sensorData.Latitud, sensorData.Longitud, fechaHoraMexico.ToString());
                     }
                     // Enviar notificación solo a los clientes suscritos al dispositivo específico
-                    await _hubContext.Clients.Group(sensorData.Mac).SendAsync("ReceiveLocationUpdate", sensorData.Mac, sensorData.Latitud, sensorData.Longitud, fechaHora.ToString());
+                    await _hubContext.Clients.Group(sensorData.Mac).SendAsync("ReceiveLocationUpdate", sensorData.Mac, sensorData.Latitud, sensorData.Longitud, fechaHoraMexico.ToString());
                 }
                 else
                 {
@@ -109,9 +116,13 @@ namespace AlzheimerWebAPI.Services
                     // Añade la hora actual del sistema a la fecha
                     fechaHora = fechaHora.Add(DateTime.Now.TimeOfDay);
 
+                    // Convertir fechaHora a la zona horaria de México
+                    TimeZoneInfo mexicoTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time");
+                    DateTime fechaHoraMexico = TimeZoneInfo.ConvertTimeFromUtc(fechaHora.ToUniversalTime(), mexicoTimeZone);
+
                     //Aqui esta si no da respuesta el cliente mqtt
                     _logger.LogError($"Failed to get location from external server with status code: {response.StatusCode}");
-                    await _hubContext.Clients.Group(mac).SendAsync("ReceiveNotFound", mac, fechaHora.ToString());
+                    await _hubContext.Clients.Group(mac).SendAsync("ReceiveNotFound", mac, fechaHoraMexico.ToString());
                 }
             }
             catch (Exception ex)

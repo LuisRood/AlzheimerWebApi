@@ -67,7 +67,7 @@ namespace AlzheimerWebAPI.Repositories
         // Obtener pacientes por ID usuario
         public async Task<List<Pacientes>> ObtenerPacientes(Guid id)
         {
-            return await _context.Pacientes
+            var pacientesFamiliaresQuery = _context.Pacientes
                 .Join(_context.PacientesFamiliares,
                     pacientes => pacientes.IdPaciente,
                     pacientesFamiliares => pacientesFamiliares.IdPaciente,
@@ -76,28 +76,25 @@ namespace AlzheimerWebAPI.Repositories
                     combined => combined.PacientesFamiliares.IdFamiliar,
                     familiares => familiares.IdFamiliar,
                     (combined, familiares) => new { Pacientes = combined.Pacientes, Familiares = familiares })
+                .Where(combined => combined.Familiares.IdUsuario == id)
+                .Select(combined => combined.Pacientes);
+
+            var pacientesCuidadoresQuery = _context.Pacientes
                 .GroupJoin(_context.PacientesCuidadores,
-                    combined => combined.Pacientes.IdPaciente,
+                    pacientes => pacientes.IdPaciente,
                     pacientesCuidadores => pacientesCuidadores.IdPaciente,
-                    (combined, pacientesCuidadores) => new { Pacientes = combined.Pacientes, Familiares = combined.Familiares, PacientesCuidadores = pacientesCuidadores })
+                    (pacientes, pacientesCuidadores) => new { Pacientes = pacientes, PacientesCuidadores = pacientesCuidadores })
                 .SelectMany(
                     combined => combined.PacientesCuidadores.DefaultIfEmpty(),
-                    (combined, pacienteCuidador) => new { Pacientes = combined.Pacientes, Familiares = combined.Familiares, PacientesCuidador = pacienteCuidador })
-                .Where(combined => combined.Familiares.IdUsuario == id || combined.PacientesCuidador.IdCuidador == id)
-                .Select(combined => combined.Pacientes)
-                .ToListAsync();
-            /*return await _context.Pacientes
-                .Join(_context.PacientesFamiliares,
-                    pacientes => pacientes.IdPaciente,
-                    pacientesFamiliares => pacientesFamiliares.IdPaciente,
-                    (pacientes, pacientesFamiliares) => new { Pacientes = pacientes, PacientesFamiliares = pacientesFamiliares })
-                .Join(_context.Familiares,
-                    combined => combined.PacientesFamiliares.IdFamiliar,
-                    familiares => familiares.IdFamiliar,
-                    (combined, familiares) => new { Pacientes = combined.Pacientes, Familiares = familiares })
-                .Where(combined => combined.Familiares.IdUsuario==id)
-                .Select(combined => combined.Pacientes)
-                .FirstOrDefaultAsync();*/
+                    (combined, pacienteCuidador) => new { Pacientes = combined.Pacientes, PacientesCuidador = pacienteCuidador })
+                .Where(combined => combined.PacientesCuidador.IdCuidador == id)
+                .Select(combined => combined.Pacientes);
+
+            var pacientesUnidos = pacientesFamiliaresQuery
+                .Union(pacientesCuidadoresQuery)
+                .Distinct();
+
+            return await pacientesUnidos.ToListAsync();
         }
 
         // Actualizar paciente
