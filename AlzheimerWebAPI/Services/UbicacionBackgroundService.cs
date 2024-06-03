@@ -16,7 +16,6 @@ namespace AlzheimerWebAPI.Services
     public class UbicacionBackgroundService : IHostedService, IDisposable
     {
         private readonly ILogger<UbicacionBackgroundService> _logger;
-        private readonly UbicacionesService _ubicacionesService;
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IHubContext<AlzheimerHub> _hubContext;
         private readonly IServiceScopeFactory _scopeFactory;
@@ -26,14 +25,12 @@ namespace AlzheimerWebAPI.Services
             ILogger<UbicacionBackgroundService> logger,
             IHttpClientFactory httpClientFactory,
             IHubContext<AlzheimerHub> hubContext,
-            IServiceScopeFactory scopeFactory,
-            UbicacionesService ubicacionesService)
+            IServiceScopeFactory scopeFactory)
         {
             _logger = logger;
             _httpClientFactory = httpClientFactory;
             _hubContext = hubContext;
             _scopeFactory = scopeFactory;
-            _ubicacionesService = ubicacionesService;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
