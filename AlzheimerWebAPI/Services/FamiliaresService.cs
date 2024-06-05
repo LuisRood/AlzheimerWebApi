@@ -32,7 +32,11 @@ namespace AlzheimerWebAPI.Repositories
         {
             return await _context.Familiares.FindAsync(id);
         }
-
+        //Obtener todos los familiares
+        public async Task<List<Familiares>> ObtenerTodosFamiliares()
+        {
+            return await _context.Familiares.ToListAsync();
+        }
         public async Task<List<Familiares>> ObtenerFamiliaresPaciente(string id)
         {
             return await _context.Familiares.Join(

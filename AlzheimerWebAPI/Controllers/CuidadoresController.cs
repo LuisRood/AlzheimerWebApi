@@ -3,6 +3,7 @@ using AlzheimerWebAPI.Models;
 using AlzheimerWebAPI.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
@@ -37,6 +38,20 @@ namespace AlzheimerWebAPI.Controllers
             var cuidadorCreado = await _cuidadoresService.CrearCuidador(nuevoCuidador);
             return Ok(cuidadorCreado);
             //return CreatedAtAction(nameof(ObtenerCuidador), new { id = cuidadorCreado.IdCuidador }, cuidadorCreado);
+        }
+
+        [HttpGet("todoscuidadores/")]
+        public async Task<IActionResult> ObtenerTodo()
+        {
+            _logger.LogInformation($"Obteniendo todos los Cuidadores");
+
+            var cuidadores = await _cuidadoresService.ObtenerTodosCuidadores();
+            if (cuidadores.IsNullOrEmpty())
+            {
+                return NotFound();
+            }
+
+            return Ok(cuidadores);
         }
 
         [HttpGet("cuidadores/{id}")]

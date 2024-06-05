@@ -2,6 +2,7 @@
 using AlzheimerWebAPI.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,6 +71,20 @@ namespace AlzheimerWebAPI.Controllers
             }
             List<PacientesDTO> pacientesDTO = pacientes.Select(p => new PacientesDTO(p)).ToList();
             return Ok(pacientesDTO);
+        }
+        [HttpGet("todospacientes")]
+        public async Task<IActionResult> ObtenerTodo()
+        {
+            _logger.LogInformation($"Obteniendo todos los Familiares");
+
+            var pacientes = await _pacientesService.ObtenerTodosPacientes();
+            if (pacientes.IsNullOrEmpty())
+            {
+                return NotFound();
+            }
+
+            return Ok(pacientes);
+
         }
 
         [HttpPut("pacientes/{id}")]

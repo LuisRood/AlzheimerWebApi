@@ -3,24 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{47830E8F-FDC5-4291-BA21-BAC36BDD626B}|AlzheimerWebAPI\\AlzheimerWebAPI.csproj|c:\\users\\luisrodr\u00EDguez\\source\\repos\\alzheimerwebapi\\alzheimerwebapi\\services\\ubicacionbackgroundservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{47830E8F-FDC5-4291-BA21-BAC36BDD626B}|AlzheimerWebAPI\\AlzheimerWebAPI.csproj|solutionrelative:alzheimerwebapi\\services\\ubicacionbackgroundservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{47830E8F-FDC5-4291-BA21-BAC36BDD626B}|AlzheimerWebAPI\\AlzheimerWebAPI.csproj|c:\\users\\luisrodr\u00EDguez\\source\\repos\\alzheimerwebapi\\alzheimerwebapi\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{47830E8F-FDC5-4291-BA21-BAC36BDD626B}|AlzheimerWebAPI\\AlzheimerWebAPI.csproj|solutionrelative:alzheimerwebapi\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{47830E8F-FDC5-4291-BA21-BAC36BDD626B}|AlzheimerWebAPI\\AlzheimerWebAPI.csproj|c:\\users\\luisrodr\u00EDguez\\source\\repos\\alzheimerwebapi\\alzheimerwebapi\\services\\ubicacionesservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{47830E8F-FDC5-4291-BA21-BAC36BDD626B}|AlzheimerWebAPI\\AlzheimerWebAPI.csproj|solutionrelative:alzheimerwebapi\\services\\ubicacionesservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{47830E8F-FDC5-4291-BA21-BAC36BDD626B}|AlzheimerWebAPI\\AlzheimerWebAPI.csproj|c:\\users\\luisrodr\u00EDguez\\source\\repos\\alzheimerwebapi\\alzheimerwebapi\\controllers\\personascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{47830E8F-FDC5-4291-BA21-BAC36BDD626B}|AlzheimerWebAPI\\AlzheimerWebAPI.csproj|solutionrelative:alzheimerwebapi\\controllers\\personascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{47830E8F-FDC5-4291-BA21-BAC36BDD626B}|AlzheimerWebAPI\\AlzheimerWebAPI.csproj|c:\\users\\luisrodr\u00EDguez\\source\\repos\\alzheimerwebapi\\alzheimerwebapi\\controllers\\ubicacionescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{47830E8F-FDC5-4291-BA21-BAC36BDD626B}|AlzheimerWebAPI\\AlzheimerWebAPI.csproj|solutionrelative:alzheimerwebapi\\controllers\\ubicacionescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{47830E8F-FDC5-4291-BA21-BAC36BDD626B}|AlzheimerWebAPI\\AlzheimerWebAPI.csproj|c:\\users\\luisrodr\u00EDguez\\source\\repos\\alzheimerwebapi\\alzheimerwebapi\\services\\pacientesservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{47830E8F-FDC5-4291-BA21-BAC36BDD626B}|AlzheimerWebAPI\\AlzheimerWebAPI.csproj|solutionrelative:alzheimerwebapi\\services\\pacientesservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,65 +22,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "UsuariosController.cs",
-              "DocumentMoniker": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\AlzheimerWebAPI\\Controllers\\UsuariosController.cs",
-              "RelativeDocumentMoniker": "AlzheimerWebAPI\\Controllers\\UsuariosController.cs",
-              "ToolTip": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\AlzheimerWebAPI\\Controllers\\UsuariosController.cs",
-              "RelativeToolTip": "AlzheimerWebAPI\\Controllers\\UsuariosController.cs",
-              "ViewState": "AQIAAFMAAAAAAAAAAAAgwGAAAAA/AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-03T17:52:34.399Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "UbicacionesController.cs",
-              "DocumentMoniker": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\AlzheimerWebAPI\\Controllers\\UbicacionesController.cs",
-              "RelativeDocumentMoniker": "AlzheimerWebAPI\\Controllers\\UbicacionesController.cs",
-              "ToolTip": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\AlzheimerWebAPI\\Controllers\\UbicacionesController.cs",
-              "RelativeToolTip": "AlzheimerWebAPI\\Controllers\\UbicacionesController.cs",
-              "ViewState": "AQIAAE8AAAAAAAAAAAAkwF0AAAA+AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-03T00:18:09.203Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "UbicacionesService.cs",
-              "DocumentMoniker": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\AlzheimerWebAPI\\Services\\UbicacionesService.cs",
-              "RelativeDocumentMoniker": "AlzheimerWebAPI\\Services\\UbicacionesService.cs",
-              "ToolTip": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\AlzheimerWebAPI\\Services\\UbicacionesService.cs",
-              "RelativeToolTip": "AlzheimerWebAPI\\Services\\UbicacionesService.cs",
-              "ViewState": "AQIAADAAAAAAAAAAAAAowDgAAABFAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-03T00:17:13.266Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "UbicacionBackgroundService.cs",
-              "DocumentMoniker": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\AlzheimerWebAPI\\Services\\UbicacionBackgroundService.cs",
-              "RelativeDocumentMoniker": "AlzheimerWebAPI\\Services\\UbicacionBackgroundService.cs",
-              "ToolTip": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\AlzheimerWebAPI\\Services\\UbicacionBackgroundService.cs",
-              "RelativeToolTip": "AlzheimerWebAPI\\Services\\UbicacionBackgroundService.cs",
-              "ViewState": "AQIAAC8AAAAAAAAAAAAjwFoAAAA/AAAA",
+              "Title": "PacientesService.cs",
+              "DocumentMoniker": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\AlzheimerWebAPI\\Services\\PacientesService.cs",
+              "RelativeDocumentMoniker": "AlzheimerWebAPI\\Services\\PacientesService.cs",
+              "ToolTip": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\AlzheimerWebAPI\\Services\\PacientesService.cs",
+              "RelativeToolTip": "AlzheimerWebAPI\\Services\\PacientesService.cs",
+              "ViewState": "AQIAAFgAAAAAAAAAAAAkwGMAAAAnAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-03T00:15:18.704Z",
+              "WhenOpened": "2024-06-05T19:32:31.174Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "PersonasController.cs",
-              "DocumentMoniker": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\AlzheimerWebAPI\\Controllers\\PersonasController.cs",
-              "RelativeDocumentMoniker": "AlzheimerWebAPI\\Controllers\\PersonasController.cs",
-              "ToolTip": "C:\\Users\\LuisRodr\u00EDguez\\source\\repos\\AlzheimerWebAPI\\AlzheimerWebAPI\\Controllers\\PersonasController.cs",
-              "RelativeToolTip": "AlzheimerWebAPI\\Controllers\\PersonasController.cs",
-              "ViewState": "AQIAADUAAAAAAAAAAAAgwBsAAABBAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-02T19:55:31.129Z"
             }
           ]
         }

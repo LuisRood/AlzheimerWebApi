@@ -79,7 +79,7 @@ namespace AlzheimerWebAPI.Services
                     DateTime fechaHora = (sensorData.Fecha ?? DateTime.MinValue).Date;
                     fechaHora = fechaHora.Add(sensorData.Hora ?? TimeSpan.Zero);
                     // Convertir fechaHora a la zona horaria de México
-                    TimeZoneInfo mexicoTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time");
+                    TimeZoneInfo mexicoTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time (Mexico)");
                     DateTime fechaHoraMexico = TimeZoneInfo.ConvertTimeFromUtc(fechaHora.ToUniversalTime(), mexicoTimeZone);
                     Ubicaciones ubicaciones = new()
                     {
@@ -114,7 +114,7 @@ namespace AlzheimerWebAPI.Services
                     fechaHora = fechaHora.Add(DateTime.Now.TimeOfDay);
 
                     // Convertir fechaHora a la zona horaria de México
-                    TimeZoneInfo mexicoTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time");
+                    TimeZoneInfo mexicoTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time (Mexico)");
                     DateTime fechaHoraMexico = TimeZoneInfo.ConvertTimeFromUtc(fechaHora.ToUniversalTime(), mexicoTimeZone);
 
                     //Aqui esta si no da respuesta el cliente mqtt
@@ -124,7 +124,17 @@ namespace AlzheimerWebAPI.Services
             }
             catch (Exception ex)
             {
+                // Obtiene la fecha actual del sistema
+                DateTime fechaHora = DateTime.Now.Date;
+
+                // Añade la hora actual del sistema a la fecha
+                fechaHora = fechaHora.Add(DateTime.Now.TimeOfDay);
+
+                // Convertir fechaHora a la zona horaria de México
+                TimeZoneInfo mexicoTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time (Mexico)");
+                DateTime fechaHoraMexico = TimeZoneInfo.ConvertTimeFromUtc(fechaHora.ToUniversalTime(), mexicoTimeZone);
                 _logger.LogError($"Error occurred while getting location: {ex.Message}");
+                await _hubContext.Clients.Group(mac).SendAsync("ReceiveNotFound", mac, fechaHoraMexico.ToString());
             }
 
         }

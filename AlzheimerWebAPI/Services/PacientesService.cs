@@ -96,6 +96,12 @@ namespace AlzheimerWebAPI.Repositories
 
             return await pacientesUnidos.ToListAsync();
         }
+        
+        //Recuperar todos los pacientes
+        public async Task<List<Pacientes>> ObtenerTodosPacientes()
+        {
+            return await _context.Pacientes.ToListAsync();
+        }
 
         // Actualizar paciente
         public async Task<Pacientes> ActualizarPaciente(string id, Pacientes pacienteActualizado)

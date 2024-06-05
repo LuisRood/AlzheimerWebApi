@@ -3,6 +3,7 @@ using AlzheimerWebAPI.Models;
 using AlzheimerWebAPI.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
@@ -54,6 +55,21 @@ namespace AlzheimerWebAPI.Controllers
 
             return Ok(familiar);
         }
+
+        [HttpGet("todosfamiliares/")]
+        public async Task<IActionResult> ObtenerTodo()
+        {
+            _logger.LogInformation($"Obteniendo todos los Familiares");
+
+            var familiares = await _familiaresService.ObtenerTodosFamiliares();
+            if (familiares.IsNullOrEmpty())
+            {
+                return NotFound();
+            }
+
+            return Ok(familiares);
+        }
+
 
         [HttpPut("familiares/{id}")]
         public async Task<IActionResult> ActualizarFamiliar(Guid id)//, [FromBody] FamiliaresDTO familiarActualizadoDTO)

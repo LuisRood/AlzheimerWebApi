@@ -27,6 +27,11 @@ namespace AlzheimerWebAPI.Repositories
         {
             return await _context.Cuidadores.FindAsync(id);
         }
+        //Obtener todos los cuidadores
+        public async Task<List<Cuidadores>> ObtenerTodosCuidadores()
+        {
+            return await _context.Cuidadores.ToListAsync();
+        }
 
         //Obtener relacion paciente cuidadores
         public async Task<List<Cuidadores>> ObtenerPacienteCuidadores(string id)
