@@ -82,7 +82,8 @@ namespace AlzheimerWebAPI.Services
                         IdDispositivo = sensorData.Mac,
                     };
 
-                    Ubicaciones ubicacionestemp = await ubicacionesService.ActualizarUbicacionDispositivo(sensorData.Mac, ubicaciones);
+                    Ubicaciones ubicacionestemp = await ubicacionesService.ActualizarUbicacionDispositivo(sensorData.Mac, 
+                    ubicaciones);
                     if(ubicacionestemp == null)
                     {
                         ubicaciones = await ubicacionesService.CrearUbicacion(ubicaciones);
@@ -94,10 +95,12 @@ namespace AlzheimerWebAPI.Services
                     if (await ubicacionesService.CheckIfOutsideGeofence(sensorData.Mac,ubicaciones))
                     {
                         _logger.LogInformation("Fuera de zona segura");
-                        await _hubContext.Clients.Group(sensorData.Mac).SendAsync("ReceiveLocationOut", sensorData.Mac, sensorData.Latitud, sensorData.Longitud, fechaHoraMexico.ToString());
+                        await _hubContext.Clients.Group(sensorData.Mac).SendAsync("ReceiveLocationOut",
+                        sensorData.Mac, sensorData.Latitud, sensorData.Longitud, fechaHoraMexico.ToString());
                     }
                     // Enviar notificación solo a los clientes suscritos al dispositivo específico
-                    await _hubContext.Clients.Group(sensorData.Mac).SendAsync("ReceiveLocationUpdate", sensorData.Mac, sensorData.Latitud, sensorData.Longitud, fechaHoraMexico.ToString());
+                    await _hubContext.Clients.Group(sensorData.Mac).SendAsync("ReceiveLocationUpdate",
+                    sensorData.Mac, sensorData.Latitud, sensorData.Longitud, fechaHoraMexico.ToString());
                 }
                 else
                 {

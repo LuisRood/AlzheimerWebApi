@@ -37,7 +37,8 @@ namespace AlzheimerWebAPI.Controllers
             //var nuevoMedicamento = new Medicamentos(nuevoMedicamentoDTO);
             var medicamentoCreado = await _medicamentosService.CrearMedicamento(nuevoMedicamento);
 
-            return Ok(medicamentoCreado);
+            var medicamentoDTO = new MedicamentosDTO(medicamentoCreado);
+            return Ok(medicamentoDTO);
             //return CreatedAtAction(nameof(ObtenerMedicamento), new { id = medicamentoCreado.IdMedicamento }, medicamentoCreado);
         }
 
@@ -53,7 +54,8 @@ namespace AlzheimerWebAPI.Controllers
                 return NotFound();
             }
 
-            return Ok(medicamento);
+            var medicamentoDTO = new MedicamentosDTO(medicamento);
+            return Ok(medicamentoDTO);
         }
 
 
@@ -81,8 +83,8 @@ namespace AlzheimerWebAPI.Controllers
             {
                 return NotFound();
             }
-
-            return Ok(medicamento);
+            var medicamentoDTO = new MedicamentosDTO(medicamento);
+            return Ok(medicamentoDTO);
         }
 
         [HttpDelete("medicamentos/{id}")]
@@ -111,7 +113,8 @@ namespace AlzheimerWebAPI.Controllers
             {
                 return NotFound();
             }
-            return Ok(medicamentos);
+            var medicamentosDTO = medicamentos.Select(m =>  new MedicamentosDTO(m)).ToList();
+            return Ok(medicamentosDTO);
         }
     }
 }
