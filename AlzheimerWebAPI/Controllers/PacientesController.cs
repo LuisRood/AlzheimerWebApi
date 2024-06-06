@@ -83,8 +83,8 @@ namespace AlzheimerWebAPI.Controllers
                 return NotFound();
             }
 
-            return Ok(pacientes);
-
+            List<PacientesDTO> pacientesDTO = pacientes.Select(p => new PacientesDTO(p)).ToList();
+            return Ok(pacientesDTO);
         }
 
         [HttpPut("pacientes/{id}")]
