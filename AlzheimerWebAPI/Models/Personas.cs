@@ -14,7 +14,7 @@ public partial class Personas
 
     public string ApellidoM { get; set; } = null!;
 
-    public DateOnly FechaNacimiento { get; set; }
+    public DateTime FechaNacimiento { get; set; }
 
     public string? NumeroTelefono { get; set; }
 

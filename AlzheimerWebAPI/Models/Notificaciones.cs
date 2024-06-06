@@ -9,9 +9,9 @@ public partial class Notificaciones
 
     public string Mensaje { get; set; } = null!;
 
-    public DateOnly? Fecha { get; set; }
+    public DateTime? Fecha { get; set; }
 
-    public TimeOnly Hora { get; set; }
+    public TimeSpan Hora { get; set; }
 
     public string IdPaciente { get; set; } = null!;
 

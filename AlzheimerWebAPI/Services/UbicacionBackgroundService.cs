@@ -1,10 +1,4 @@
-﻿using System;
-using System.Net.Http;
-using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+﻿using System.Text.Json;
 using Microsoft.AspNetCore.SignalR;
 using AlzheimerWebAPI.Models;
 using AlzheimerWebAPI.Notifications;
@@ -37,7 +31,7 @@ namespace AlzheimerWebAPI.Services
         {
             _logger.LogInformation("Location Background Service is starting.");
 
-            _timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromSeconds(5)/*.FromMinutes(1)*/); // Configura el intervalo de tiempo
+            _timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
 
             return Task.CompletedTask;
         }
