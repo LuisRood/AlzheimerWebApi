@@ -95,51 +95,44 @@ namespace AlzheimerWebAPI.Repositories
                 .Distinct();
 
             return await pacientesUnidos.ToListAsync();*/
-            var pacientesFamiliaresQuery = _context.Pacientes
-                .Join(_context.PacientesFamiliares,
-                    pacientes => pacientes.IdPaciente,
-                    pacientesFamiliares => pacientesFamiliares.IdPaciente,
-                    (pacientes, pacientesFamiliares) => new { Pacientes = pacientes, PacientesFamiliares = pacientesFamiliares })
-                .Join(_context.Familiares,
-                    combined => combined.PacientesFamiliares.IdFamiliar,
-                    familiares => familiares.IdFamiliar,
-                    (combined, familiares) => new { Pacientes = combined.Pacientes, Familiares = familiares })
-                .Where(combined => combined.Familiares.IdUsuario == id)
-                .Select(combined => combined.Pacientes);
 
-            var pacientesCuidadoresQuery = _context.Pacientes
-                .GroupJoin(_context.PacientesCuidadores,
-                    pacientes => pacientes.IdPaciente,
-                    pacientesCuidadores => pacientesCuidadores.IdPaciente,
-                    (pacientes, pacientesCuidadores) => new { Pacientes = pacientes, PacientesCuidadores = pacientesCuidadores })
-                .SelectMany(
-                    combined => combined.PacientesCuidadores.DefaultIfEmpty(),
-                    (combined, pacienteCuidador) => new { Pacientes = combined.Pacientes, PacientesCuidador = pacienteCuidador })
-                .Where(combined => combined.PacientesCuidador == null || combined.PacientesCuidador.IdCuidador == id)
-                .Select(combined => combined.Pacientes);
+            // Primer Query (Pacientes y Cuidadores)
+            var query1 = from p in _context.Pacientes
+                         join pc in _context.PacientesCuidadores on p.IdPaciente equals pc.IdPaciente
+                         join c in _context.Cuidadores on pc.IdCuidador equals c.IdCuidador
+                         where c.IdUsuario == id
+                         select p;
 
-            var pacientesFamiliaresList = await pacientesFamiliaresQuery.ToListAsync();
-            var pacientesCuidadoresList = await pacientesCuidadoresQuery.ToListAsync();
+            // Segundo Query (Pacientes y Familiares)
+            var query2 = from p in _context.Pacientes
+                         join pf in _context.PacientesFamiliares on p.IdPaciente equals pf.IdPaciente
+                         join f in _context.Familiares on pf.IdFamiliar equals f.IdFamiliar
+                         where f.IdUsuario == id
+                         select p;
 
-            List<Pacientes> pacientesUnidos;
+            var result1 = query1.ToList();
+            var result2 = query2.ToList();
 
-            if (pacientesFamiliaresList.Any() && pacientesCuidadoresList.Any())
+            // Combinar resultados según las condiciones especificadas
+            var combinedResults = new List<Pacientes>();
+
+            if (result1.Any() && result2.Any())
             {
-                pacientesUnidos = pacientesFamiliaresList
-                    .Union(pacientesCuidadoresList)
-                    .Distinct()
-                    .ToList();
+                combinedResults = result1.Union(result2).ToList();
             }
-            else if (pacientesFamiliaresList.Any())
+            else if (result1.Any())
             {
-                pacientesUnidos = pacientesFamiliaresList;
+                combinedResults = result1;
+            }
+            else if (result2.Any())
+            {
+                combinedResults = result2;
             }
             else
             {
-                pacientesUnidos = pacientesCuidadoresList;
+                combinedResults = result1.Union(result2).ToList();
             }
-
-            return pacientesUnidos;
+            return combinedResults;
         }
         
         //Recuperar todos los pacientes

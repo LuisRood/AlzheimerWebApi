@@ -76,7 +76,8 @@ namespace AlzheimerWebAPI.Controllers
                 usuarioCreado = await _usuariosService.CrearUsuario(nuevoUser.Usuario);
             }
 
-            return CreatedAtAction(nameof(ObtenerUsuario), new { id = usuarioCreado.IdUsuario }, usuarioCreado);
+            return Ok(usuarioCreado);
+            //return CreatedAtAction(nameof(ObtenerUsuario), new { id = usuarioCreado.IdUsuario }, usuarioCreado);
         }
 
         [HttpPost("login")]

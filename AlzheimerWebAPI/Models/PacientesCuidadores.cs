@@ -16,7 +16,7 @@ public partial class PacientesCuidadores
 
     public TimeOnly HoraFin { get; set; }
 
-    public virtual ICollection<Dias> Dia { get; set; } = new List<Dias>();
+    public virtual Dias Dia { get; set; } = null!;
 
     [JsonIgnore]
     public virtual Cuidadores IdCuidadorNavigation { get; set; } = null!;

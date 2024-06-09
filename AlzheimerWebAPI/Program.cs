@@ -45,6 +45,8 @@ namespace AlzheimerWebAPI
             builder.Services.AddScoped<UbicacionesService>();
             builder.Services.AddScoped<DispositivosService>();
             builder.Services.AddScoped<PacientesFamiliaresService>();
+            builder.Services.AddScoped<TiposNotificacionesService>();
+            builder.Services.AddScoped<NotificacionesService>();
             builder.Services.AddHostedService<UbicacionBackgroundService>();
             builder.Services.AddHttpClient();
 

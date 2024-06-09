@@ -7,17 +7,18 @@ namespace AlzheimerWebAPI.Models;
 public partial class PacientesDTO//(Pacientes paciente)
 {
     public string IdPaciente { get; set; } 
-    public string IdDispositivo { get; set; } 
+
+    public string? IdDispositivo { get; set; } 
 
     public Guid IdPersona { get; set; }
 
-    public virtual DispositivosDTO IdDispositivoNavigation { get; set; }
+    public virtual DispositivosDTO? IdDispositivoNavigation { get; set; }
 
     public virtual Personas IdPersonaNavigation { get; set; } 
 
     public virtual ICollection<Medicamentos> Medicamentos { get; set; }
 
-    public virtual ICollection<Notificaciones> Notificaciones { get; set; }
+    public virtual ICollection<NotificacionesDTO> Notificaciones { get; set; }
 
     public virtual ICollection<PacientesCuidadores> PacientesCuidadores { get; set; } 
 
@@ -30,11 +31,11 @@ public partial class PacientesDTO//(Pacientes paciente)
         IdPaciente = paciente.IdPaciente;
         IdDispositivo = paciente.IdDispositivo;
         IdPersona = paciente.IdPersona;
-        IdDispositivoNavigation = new DispositivosDTO(paciente.IdDispositivoNavigation);
+        IdDispositivoNavigation = paciente.IdDispositivoNavigation != null ? new DispositivosDTO(paciente.IdDispositivoNavigation) : null!;
         IdPersonaNavigation = paciente.IdPersonaNavigation;
-        Medicamentos = paciente.Medicamentos;
-        Notificaciones = paciente.Notificaciones;
-        PacientesCuidadores = paciente.PacientesCuidadores;
-        PacientesFamiliares = paciente.PacientesFamiliares;
+        Medicamentos = paciente.Medicamentos ?? new List<Medicamentos>();
+        Notificaciones = paciente.Notificaciones?.Select(n => new NotificacionesDTO(n)).ToList() ?? new List<NotificacionesDTO>();
+        PacientesCuidadores = paciente.PacientesCuidadores ?? new List<PacientesCuidadores>();
+        PacientesFamiliares = paciente.PacientesFamiliares ?? new List<PacientesFamiliares>();
     }
 }

@@ -83,8 +83,8 @@ public partial class AlzheimerContext : DbContext
             entity.Property(e => e.Sabado).HasDefaultValue(false);
             entity.Property(e => e.Viernes).HasDefaultValue(false);
 
-            entity.HasOne(d => d.IdCuidaPacienteNavigation).WithMany(p => p.Dia)
-                .HasForeignKey(d => d.IdCuidaPaciente)
+            entity.HasOne(d => d.IdCuidaPacienteNavigation).WithOne(p => p.Dia)
+                .HasForeignKey<Dias>(d => d.IdCuidaPaciente)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Dias__IdCuidaPac__76969D2E");
         });
