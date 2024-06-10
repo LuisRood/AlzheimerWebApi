@@ -23,9 +23,9 @@ namespace AlzheimerWebAPI.Repositories
         }
 
         // Obtener relación por ID
-        public async Task<PacientesFamiliares> ObtenerRelacion(Guid id)
+        public async Task<PacientesFamiliares> ObtenerRelacion(string id)
         {
-            return await _context.PacientesFamiliares.FindAsync(id);
+            return await _context.PacientesFamiliares.FirstOrDefaultAsync(pf => pf.IdPaciente == id);
         }
 
         // Obtener  Familiares del paciente

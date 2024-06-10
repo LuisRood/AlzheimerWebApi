@@ -1,5 +1,7 @@
-﻿using AlzheimerWebAPI.Models;
+﻿using AlzheimerWebAPI.DTO;
+using AlzheimerWebAPI.Models;
 using AlzheimerWebAPI.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,6 +14,7 @@ namespace AlzheimerWebAPI.Controllers
     //[Route("api/[controller]")]
     [Route("api/")]
     [ApiController]
+    [Authorize]
     public class PacientesCuidadoresController : ControllerBase
     {
         private readonly PacientesCuidadoresService _pacientesCuidadoresService;
@@ -36,12 +39,13 @@ namespace AlzheimerWebAPI.Controllers
 
             var pacienteCuidadorCreado = await _pacientesCuidadoresService.CrearRelacion(nuevoPacienteCuidador);
 
-            return Ok(pacienteCuidadorCreado);
+            PacientesCuidadoresDTO nuevoPacienteCuidadorDTO = new(nuevoPacienteCuidador);
+            return Ok(nuevoPacienteCuidadorDTO);
             //return CreatedAtAction(nameof(CrearRelacion), new { id = pacienteCuidadorCreado.IdCuidaPaciente }, pacienteCuidadorCreado);
         }
 
         [HttpGet("pacientescuidadores/{id}")]
-        public async Task<IActionResult> ObtenerRelacion(Guid id)
+        public async Task<IActionResult> ObtenerRelacion(string id)
         {
             _logger.LogInformation($"Obteniendo relación paciente-cuidador con ID: {id}");
 
@@ -52,7 +56,8 @@ namespace AlzheimerWebAPI.Controllers
                 return NotFound();
             }
 
-            return Ok(pacienteCuidador);
+            PacientesCuidadoresDTO pacienteCuidadorDTO = new(pacienteCuidador);
+            return Ok(pacienteCuidadorDTO);
         }
         [HttpGet("pacientecuidadores/{id}")]
         public async Task<IActionResult> ObtenerRelacionCuidadoresPaciente(string id)

@@ -1,5 +1,6 @@
 ﻿using AlzheimerWebAPI.Models;
 using AlzheimerWebAPI.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,6 +14,7 @@ namespace AlzheimerWebAPI.Controllers
     //[Route("api/[controller]")]
     [Route("api/")]
     [ApiController]
+    [Authorize]
     public class DispositivosController : ControllerBase
     {
         private readonly DispositivosService _dispositivosService;

@@ -19,9 +19,9 @@ namespace AlzheimerWebAPI.Services
             this.secretKey = secretKey;
             rolePermissions = new Dictionary<string, List<string>>
             {
-                { "Administrador", new List<string> {"usersForms", "carer_form", "user_form", "familiar_form", "patientMgmt", "familyTab", "carerTab", "patientTab", "devMgmt" } },
-                { "Familiar", new List<string> { "usersForms", "carer_form", "zoneScr", "patientMgmt", "bluetooth", "setMedAlarm", "devConnAlarm", "fallAlarm", "medicineAlarm", "zoneAlarm", "location", "medMgmt", "carerTab"} },
-                { "Cuidador", new List<string> { "setMedAlarm", "devConnAlarm", "fallAlarm", "medicineAlarm", "zoneAlarm", "location", "medMgmt"} }
+                { "Administrador", new List<string> {"usersForms", "carer_form", "user_form", "addPac", "familiar_form", "addFam", "patientMgmt", "familyTab", "carerTab", "patientTab", "devMgmt" } },
+                { "Familiar", new List<string> { "usersForms", "carer_form", "zoneScr", "patientMgmt", "bluetooth", "setMedAlarm", "devConnAlarm", "fallAlarm", "medicineAlarm", "zoneAlarm", "location", "medMgmt", "notify" } },
+                { "Cuidador", new List<string> { "setMedAlarm", "devConnAlarm", "fallAlarm", "medicineAlarm", "zoneAlarm", "location", "medMgmt", "notify" } }
             };
         }
 

@@ -1,6 +1,7 @@
 ﻿using AlzheimerWebAPI.DTO;
 using AlzheimerWebAPI.Models;
 using AlzheimerWebAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -9,6 +10,7 @@ namespace AlzheimerWebAPI.Controllers
 {
     [Route("api/")]
     [ApiController]
+    [Authorize]
     public class NotificacionesController : ControllerBase
     {
         private readonly NotificacionesService _notificacionesService;

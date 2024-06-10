@@ -3,6 +3,7 @@ using AlzheimerWebAPI.Models;
 using AlzheimerWebAPI.Notifications;
 using AlzheimerWebAPI.Repositories;
 using AlzheimerWebAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
@@ -43,6 +44,7 @@ namespace AlzheimerWebAPI.Controllers
         }
 
         [HttpPost("CrearUsuario")]
+        [Authorize]
         public async Task<IActionResult> CrearUsuario()//[FromBody] Users nuevoUser)
         {
             _logger.LogInformation("Creando un nuevo usuario.");
@@ -81,6 +83,7 @@ namespace AlzheimerWebAPI.Controllers
         }
 
         [HttpPost("login")]
+        [AllowAnonymous]
         public async Task<IActionResult> LoginUsuario([FromBody] LogIn data)
         {
             _logger.LogInformation("Iniciando sesión");
@@ -108,6 +111,7 @@ namespace AlzheimerWebAPI.Controllers
         }
 
         [HttpGet("usuarios/{id}")]
+        [Authorize]
         public async Task<IActionResult> ObtenerUsuario(Guid id)
         {
             _logger.LogInformation($"Obteniendo usuario con ID: {id}");
@@ -123,6 +127,7 @@ namespace AlzheimerWebAPI.Controllers
         }
 
         [HttpPut("usuarios/{id}")]
+        [Authorize]
         public async Task<IActionResult> ActualizarUsuario(Guid id)//, [FromBody] Users actualizarUser)
         {
             _logger.LogInformation($"Actualizando usuario con ID: {id}");
@@ -143,6 +148,7 @@ namespace AlzheimerWebAPI.Controllers
         }
 
         [HttpDelete("usuarios/{id}")]
+        [Authorize]
         public async Task<IActionResult> EliminarUsuario(Guid id)
         {
             _logger.LogInformation($"Eliminando usuario con ID: {id}");

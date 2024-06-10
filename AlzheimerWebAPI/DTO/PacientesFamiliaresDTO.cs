@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AlzheimerWebAPI.DTO
 {
-    internal class PacientesFamiliaresDTO
+    public class PacientesFamiliaresDTO
     {
         public Guid IdPacienteFamiliar { get; set; }
 
@@ -16,17 +16,13 @@ namespace AlzheimerWebAPI.DTO
 
         public Guid IdFamiliar { get; set; }
 
-        public virtual Familiares IdFamiliarNavigation { get; set; } = null!;
-
-        public virtual PacientesDTO IdPacienteNavigation { get; set; } = null!;
+        public PacientesFamiliaresDTO() { }
 
         public PacientesFamiliaresDTO(PacientesFamiliares pacientesFamiliares)
         {
             IdPacienteFamiliar = pacientesFamiliares.IdPacienteFamiliar;
             IdPaciente = pacientesFamiliares.IdPaciente;
             IdFamiliar = pacientesFamiliares.IdFamiliar;
-            IdFamiliarNavigation = pacientesFamiliares.IdFamiliarNavigation;
-            IdPacienteNavigation = new PacientesDTO(pacientesFamiliares.IdPacienteNavigation);
         }
     }
 }

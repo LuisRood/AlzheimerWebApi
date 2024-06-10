@@ -1,4 +1,5 @@
 ﻿using AlzheimerWebAPI.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Net;
 using System.Threading.Tasks;
@@ -22,10 +23,10 @@ namespace AlzheimerWebAPI.Repositories
             return relacion;
         }
 
-        // Obtener relación por ID
-        public async Task<PacientesCuidadores> ObtenerRelacion(Guid id)
+        // Obtener relación por ID de paciente
+        public async Task<PacientesCuidadores> ObtenerRelacion(string id)
         {
-            return await _context.PacientesCuidadores.FindAsync(id);
+            return await _context.PacientesCuidadores.FirstOrDefaultAsync(pc => pc.IdPaciente == id);
         }
         // Actualizar relación Pacientes-Cuidador
         public async Task<PacientesCuidadores> ActualizarRelacion(Guid id, PacientesCuidadores relacionActualizada)

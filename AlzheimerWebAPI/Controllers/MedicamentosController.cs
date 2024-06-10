@@ -1,6 +1,7 @@
 ﻿using AlzheimerWebAPI.DTO;
 using AlzheimerWebAPI.Models;
 using AlzheimerWebAPI.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
@@ -14,6 +15,7 @@ namespace AlzheimerWebAPI.Controllers
     //[Route("api/[controller]")]
     [Route("api/")]
     [ApiController]
+    [Authorize]
     public class MedicamentosController : ControllerBase
     {
         private readonly MedicamentosService _medicamentosService;

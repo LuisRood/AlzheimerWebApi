@@ -2,6 +2,7 @@
 using AlzheimerWebAPI.Models;
 using AlzheimerWebAPI.Notifications;
 using AlzheimerWebAPI.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
@@ -17,6 +18,7 @@ namespace AlzheimerWebAPI.Controllers
     //[Route("api/[controller]")]
     [Route("api/")]
     [ApiController]
+    [Authorize]
     public class SensorDataController : ControllerBase
     {
         private readonly ILogger<SensorDataController> _logger;

@@ -1,6 +1,7 @@
 ﻿using AlzheimerWebAPI.DTO;
 using AlzheimerWebAPI.Models;
 using AlzheimerWebAPI.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NetTopologySuite.Geometries;
@@ -13,6 +14,7 @@ namespace AlzheimerWebAPI.Controllers
     //[Route("api/[controller]")]
     [Route("api/")]
     [ApiController]
+    [Authorize]
     public class UbicacionesController : ControllerBase
     {
         private readonly UbicacionesService _ubicacionesService;
