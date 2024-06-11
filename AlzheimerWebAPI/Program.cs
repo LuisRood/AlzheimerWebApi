@@ -16,22 +16,22 @@ namespace AlzheimerWebAPI
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            // Agregar servicios al contenedor
             builder.Services.AddControllers().AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals;
                 options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault;
+                options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
             });
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            //Base de datos
             builder.Services.AddDbContext<AlzheimerContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), builder =>
                 builder.UseNetTopologySuite()).UseLazyLoadingProxies());
 
-            // Aquí agregamos los servicios necesarios
             builder.Services.AddScoped<PersonasService>();
             builder.Services.AddScoped<CuidadoresService>();
             builder.Services.AddScoped<FamiliaresService>();
@@ -51,10 +51,8 @@ namespace AlzheimerWebAPI
             builder.Services.AddHostedService<UbicacionBackgroundService>();
             builder.Services.AddHttpClient();
 
-            //Add SignalR
             builder.Services.AddSignalR();
 
-            // CORS
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowAllOrigins",
@@ -63,8 +61,7 @@ namespace AlzheimerWebAPI
                                       .AllowAnyHeader());
             });
 
-            // Configurar el servicio de autenticación JWT
-            var secretKey = "770A8A65DA156D24EE2A093277530142"; // Clave secreta para firmar el token
+            var secretKey = "770A8A65DA156D24EE2A093277530142";
             var key = Encoding.ASCII.GetBytes(secretKey);
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -80,6 +77,24 @@ namespace AlzheimerWebAPI
                         ValidAudience = "your-audience",
                         IssuerSigningKey = new SymmetricSecurityKey(key)
                     };
+
+                    // Configurar SignalR para usar tokens
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            var accessToken = context.Request.Query["access_token"];
+
+                            // Si la solicitud es para el Hub de SignalR, el token se pasa como un parámetro de consulta
+                            var path = context.HttpContext.Request.Path;
+                            if (!string.IsNullOrEmpty(accessToken) &&
+                                (path.StartsWithSegments("/notificationHub")))
+                            {
+                                context.Token = accessToken;
+                            }
+                            return Task.CompletedTask;
+                        }
+                    };
                 });
 
             builder.Services.AddAuthorization(options =>
@@ -91,26 +106,22 @@ namespace AlzheimerWebAPI
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
 
-            // Use CORS with the specified policy
             app.UseCors("AllowAllOrigins");
 
-            // Habilitar la autenticación y autorización
             app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllers();
-
-            //Notification Hub
             app.MapHub<AlzheimerHub>("/notificationHub");
 
             app.Run();
+
         }
     }
 }

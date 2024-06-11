@@ -155,3 +155,4 @@ C:\Users\LuisRodríguez\source\repos\AlzheimerWebAPI\AlzheimerWebAPI\obj\Release
 C:\Users\LuisRodríguez\source\repos\AlzheimerWebAPI\AlzheimerWebAPI\obj\Release\net8.0\AlzheimerWebAPI.pdb
 C:\Users\LuisRodríguez\source\repos\AlzheimerWebAPI\AlzheimerWebAPI\obj\Release\net8.0\AlzheimerWebAPI.genruntimeconfig.cache
 C:\Users\LuisRodríguez\source\repos\AlzheimerWebAPI\AlzheimerWebAPI\obj\Release\net8.0\ref\AlzheimerWebAPI.dll
+C:\Users\LuisRodríguez\source\repos\AlzheimerWebAPI\AlzheimerWebAPI\bin\Release\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

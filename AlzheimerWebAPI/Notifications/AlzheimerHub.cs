@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR;
 using System.Collections.Concurrent;
 
 namespace AlzheimerWebAPI.Notifications
 {
+    [Authorize]
     public class AlzheimerHub : Hub
     {
         private static readonly ConcurrentDictionary<string,HashSet<string>> _activeDevices = new();

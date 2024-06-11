@@ -1,4 +1,5 @@
-﻿using AlzheimerWebAPI.Models;
+﻿using AlzheimerWebAPI.DTO;
+using AlzheimerWebAPI.Models;
 using AlzheimerWebAPI.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -34,8 +35,8 @@ namespace AlzheimerWebAPI.Controllers
             var nuevaPersona = JsonSerializer.Deserialize<Personas>(requestBody);
 
             var personaCreada = await _personasService.CrearPersona(nuevaPersona);
-
-            return Ok(personaCreada);
+            PersonasDTO personaCreadaDTO = new(personaCreada);
+            return Ok(personaCreadaDTO);
             //return CreatedAtAction(nameof(ObtenerPersona), new { id = personaCreada.IdPersona }, personaCreada);
         }
 
@@ -50,8 +51,9 @@ namespace AlzheimerWebAPI.Controllers
             {
                 return NotFound();
             }
+            PersonasDTO personaDTO = new(persona);
 
-            return Ok(persona);
+            return Ok(personaDTO);
         }
 
         [HttpPut("personas/{id}")]
@@ -69,8 +71,9 @@ namespace AlzheimerWebAPI.Controllers
             {
                 return NotFound();
             }
+            PersonasDTO personaDTO = new(persona);
 
-            return Ok(persona);
+            return Ok(personaDTO);
         }
 
         [HttpDelete("personas/{id}")]

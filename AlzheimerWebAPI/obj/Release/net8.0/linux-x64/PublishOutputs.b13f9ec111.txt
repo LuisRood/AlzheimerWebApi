@@ -8,6 +8,7 @@ C:\Users\LuisRodríguez\source\repos\AlzheimerWebAPI\AlzheimerWebAPI\obj\Release
 C:\Users\LuisRodríguez\source\repos\AlzheimerWebAPI\AlzheimerWebAPI\obj\Release\net8.0\linux-x64\PubTmp\Out\Azure.Identity.dll
 C:\Users\LuisRodríguez\source\repos\AlzheimerWebAPI\AlzheimerWebAPI\obj\Release\net8.0\linux-x64\PubTmp\Out\BCrypt.Net-Next.dll
 C:\Users\LuisRodríguez\source\repos\AlzheimerWebAPI\AlzheimerWebAPI\obj\Release\net8.0\linux-x64\PubTmp\Out\Castle.Core.dll
+C:\Users\LuisRodríguez\source\repos\AlzheimerWebAPI\AlzheimerWebAPI\obj\Release\net8.0\linux-x64\PubTmp\Out\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\LuisRodríguez\source\repos\AlzheimerWebAPI\AlzheimerWebAPI\obj\Release\net8.0\linux-x64\PubTmp\Out\Microsoft.AspNetCore.Connections.Abstractions.dll
 C:\Users\LuisRodríguez\source\repos\AlzheimerWebAPI\AlzheimerWebAPI\obj\Release\net8.0\linux-x64\PubTmp\Out\Microsoft.AspNetCore.Http.Connections.Client.dll
 C:\Users\LuisRodríguez\source\repos\AlzheimerWebAPI\AlzheimerWebAPI\obj\Release\net8.0\linux-x64\PubTmp\Out\Microsoft.AspNetCore.Http.Connections.Common.dll

@@ -2,6 +2,7 @@
 using AlzheimerWebAPI.Models;
 using AlzheimerWebAPI.Notifications;
 using AlzheimerWebAPI.Repositories;
+using AlzheimerWebAPI.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
@@ -10,6 +11,7 @@ using NetTopologySuite.Geometries;
 using System;
 using System.IO;
 using System.Net.Http;
+using System.Security.Cryptography;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -18,23 +20,29 @@ namespace AlzheimerWebAPI.Controllers
     //[Route("api/[controller]")]
     [Route("api/")]
     [ApiController]
-    [Authorize]
     public class SensorDataController : ControllerBase
     {
         private readonly ILogger<SensorDataController> _logger;
         private readonly HttpClient _httpClient;
         private readonly UbicacionesService _ubicacionesService;
         private readonly IHubContext<AlzheimerHub> _hubContext;
+        private readonly NotificacionesService _notificacionesService;
+        private readonly DispositivosService _dispositivosService;
 
-        public SensorDataController(ILogger<SensorDataController> logger, HttpClient httpClient, UbicacionesService ubicacionesService,IHubContext<AlzheimerHub> hubContext)
+        public SensorDataController(ILogger<SensorDataController> logger, HttpClient httpClient, 
+            UbicacionesService ubicacionesService,IHubContext<AlzheimerHub> hubContext,NotificacionesService notificacionesService,
+            DispositivosService dispositivosService)
         {
             _logger = logger;
             _httpClient = httpClient;
             _ubicacionesService = ubicacionesService;
             _hubContext = hubContext;
+            _notificacionesService = notificacionesService;
+            _dispositivosService = dispositivosService;
         }
 
         [HttpPost("ObtenerUbicacionPeriodicamente")]
+        [AllowAnonymous]
         public async Task<IActionResult> ObtenerUbicacion([FromBody] SensorData sensorData)
         {
             _logger.LogInformation("C# HTTP trigger function processed a request.");
@@ -50,7 +58,17 @@ namespace AlzheimerWebAPI.Controllers
                     fechaHora = fechaHora.Add(sensorData.Hora ?? TimeSpan.Zero);
                     if (sensorData.Caida == true)
                     {
+                        Dispositivos dispositivo = await _dispositivosService.ObtenerDispositivo(sensorData.Mac);
+                        Notificaciones notificacion = new()
+                        {
+                            Mensaje = $"El dispositivo {sensorData.Mac} ha registrado una caida",
+                            Fecha = fechaHora,
+                            Hora = fechaHora.TimeOfDay,
+                            IdPaciente = dispositivo.Paciente.IdPaciente,
+                            IdTipoNotificacion = new Guid("F08E572E-1ED7-4006-B769-3B39B9364D16")
+                        };
                         _logger.LogInformation("El Paciente ha caido");
+                        await _notificacionesService.CrearNotificacion(notificacion);
                         await _hubContext.Clients.Group(sensorData.Mac).SendAsync("ReceiveFall", sensorData.Mac, fechaHora.ToString());
 
 
@@ -68,6 +86,7 @@ namespace AlzheimerWebAPI.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("ubicacion/{mac}")]
         public async Task<IActionResult> ObtenerUbicacionPeriodicamente(string mac)
         {

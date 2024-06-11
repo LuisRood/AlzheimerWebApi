@@ -4,7 +4,7 @@
   "parameters": {
     "resourceGroupName": {
       "type": "string",
-      "defaultValue": "TTMQTT",
+      "defaultValue": "TTAlzheimer",
       "metadata": {
         "_parameterType": "resourceGroup",
         "description": "Nombre del grupo de recursos del recurso. Se recomienda poner los recursos en el mismo grupo de recursos para mejorar el seguimiento."
@@ -49,17 +49,17 @@
           "contentVersion": "1.0.0.0",
           "resources": [
             {
-              "name": "AlzheimerWebapi",
+              "name": "AlzheimerWebAPIapi",
               "type": "Microsoft.ApiManagement/service",
               "location": "[parameters('resourceLocation')]",
               "properties": {
-                "publisherEmail": "lrodriguezr1401@alumno.ipn.mx",
-                "publisherName": "Luis Felipe Rodriguez Reyes",
+                "publisherEmail": "amoralesv1400@alumno.ipn.mx",
+                "publisherName": "Ariadne Denisse Morales Vilchis",
                 "notificationSenderEmail": "apimgmt-noreply@mail.windowsazure.com",
                 "hostnameConfigurations": [
                   {
                     "type": "Proxy",
-                    "hostName": "alzheimerwebapi.azure-api.net",
+                    "hostName": "alzheimerwebapiapi.azure-api.net",
                     "encodedCertificate": null,
                     "keyVaultId": null,
                     "certificatePassword": null,
@@ -95,7 +95,7 @@
             },
             {
               "type": "Microsoft.ApiManagement/service/apis",
-              "name": "AlzheimerWebapi/AlzheimerWebAPI",
+              "name": "AlzheimerWebAPIapi/AlzheimerWebAPI",
               "properties": {
                 "displayName": "AlzheimerWebAPI",
                 "apiRevision": "1",
@@ -118,7 +118,7 @@
               },
               "apiVersion": "2019-12-01",
               "dependsOn": [
-                "AlzheimerWebapi"
+                "AlzheimerWebAPIapi"
               ]
             }
           ]
