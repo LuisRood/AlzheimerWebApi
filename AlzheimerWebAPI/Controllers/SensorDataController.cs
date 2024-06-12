@@ -40,6 +40,11 @@ namespace AlzheimerWebAPI.Controllers
             _notificacionesService = notificacionesService;
             _dispositivosService = dispositivosService;
         }
+        private static DateTime ConvertToMexicoTime(DateTime utcTime)
+        {
+            TimeZoneInfo mexicoTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time (Mexico)");
+            return TimeZoneInfo.ConvertTimeFromUtc(utcTime, mexicoTimeZone);
+        }
 
         [HttpPost("ObtenerUbicacionPeriodicamente")]
         [AllowAnonymous]
@@ -54,8 +59,8 @@ namespace AlzheimerWebAPI.Controllers
                 if (sensorData.Mac != null)
                 {
                     Console.WriteLine(sensorData.Mac);
-                    DateTime fechaHora = (sensorData.Fecha ?? DateTime.MinValue).Date;
-                    fechaHora = fechaHora.Add(sensorData.Hora ?? TimeSpan.Zero);
+                    DateTime fechaHora = (sensorData.Fecha ?? DateTime.MinValue).Date.Add(sensorData.Hora ?? TimeSpan.Zero);
+                    DateTime fechaHoraMexico = ConvertToMexicoTime(fechaHora);
                     if (sensorData.Caida == true)
                     {
                         Dispositivos dispositivo = await _dispositivosService.ObtenerDispositivo(sensorData.Mac);

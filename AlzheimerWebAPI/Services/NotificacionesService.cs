@@ -43,17 +43,27 @@ namespace AlzheimerWebAPI.Services
 
             if (notificacionesCuidadores.Count == 0 && notificacionesFamiliares.Count != 0)
             {
-                return notificacionesFamiliares;
+                return notificacionesFamiliares
+                    .OrderByDescending(n => n.Fecha)
+                    .ThenByDescending(n => n.Hora)
+                    .ToList();
             }
 
             if (notificacionesFamiliares.Count == 0 && notificacionesCuidadores.Count != 0)
             {
-                return notificacionesCuidadores;
+                return notificacionesCuidadores
+                    .OrderByDescending(n => n.Fecha)
+                    .ThenByDescending(n => n.Hora)
+                    .ToList();
             }
 
             if (notificacionesCuidadores.Count != 0 && notificacionesFamiliares.Count != 0)
             {
-                return notificacionesCuidadores.Concat(notificacionesFamiliares).ToList();
+                return notificacionesCuidadores
+                    .Concat(notificacionesFamiliares)
+                    .OrderByDescending(n => n.Fecha)
+                    .ThenByDescending(n => n.Hora)
+                    .ToList();
             }
 
             return new List<Notificaciones>();
