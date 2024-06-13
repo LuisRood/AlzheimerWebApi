@@ -15,6 +15,7 @@ namespace AlzheimerWebAPI.Services
         private readonly IHubContext<AlzheimerHub> _hubContext;
         private readonly IServiceScopeFactory _scopeFactory;
         private Timer _timer;
+        private Timer _medicamentosTimer;
 
         private static readonly Guid SafeZoneNotificationId = new("1C54A3D4-0136-4AE9-AC44-51151254C734");
         private static readonly Guid ConnectionLostNotificationId = new("41706CF7-E7EB-45ED-AF7A-7637EE86D499");
@@ -39,10 +40,58 @@ namespace AlzheimerWebAPI.Services
             _logger.LogInformation("Location Background Service is starting.");
 
             _timer = new Timer(async _ => await DoWork(), null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
+            _medicamentosTimer = new Timer(async _ => await medicamentosDoWork(), null, TimeSpan.Zero, TimeSpan.FromMinutes(1));
 
             return Task.CompletedTask;
         }
 
+        private async Task medicamentosDoWork()
+        {
+            _logger.LogInformation("Checking medication notifications.");
+
+            using (var scope = _scopeFactory.CreateScope())
+            {
+                var notificacionesService = scope.ServiceProvider.GetRequiredService<NotificacionesService>();
+
+                try
+                {
+                    var ahora = ConvertToMexicoTime(DateTime.UtcNow);
+                    ahora = ahora.AddMinutes(1);
+                    var minantes = ahora.AddMinutes(-1);
+                    var notificacionesPendientes = await notificacionesService.ObtenerNotificacionesPendientes(ahora.TimeOfDay, minantes.TimeOfDay);
+                    var notificacionesPorPaciente = notificacionesPendientes
+                        .GroupBy(n => n.IdPaciente)
+                        .ToList();
+
+
+                    foreach (var grupoNotificaciones in notificacionesPorPaciente)
+                    {
+                        var idPaciente = grupoNotificaciones.Key;
+                        var dispositivosPaciente = AlzheimerHub.GetActiveDevices()
+                            .Where(kvp => kvp.Value.Contains(idPaciente))
+                            .Select(kvp => kvp.Key)
+                            .ToList();
+
+                        Console.WriteLine(grupoNotificaciones);
+                        foreach (var notificacion in grupoNotificaciones)
+                            {
+                                Console.WriteLine(notificacion.IdPacienteNavigation.IdDispositivo);
+                                // Enviar notificación a través de SignalR al grupo correspondiente
+                                await _hubContext.Clients.Group(notificacion.IdPacienteNavigation.IdDispositivo).SendAsync("ReceiveMedicationNotification", notificacion.IdPacienteNavigation.IdDispositivo, ahora ,notificacion.Mensaje);
+
+                                // Marcar la notificación como enviada
+                                notificacion.Enviada = true;
+                                await notificacionesService.ActualizarNotificacion(notificacion.IdNotificacion, notificacion);
+                            }
+                        
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError($"Error occurred while checking medication notifications: {ex.Message}");
+                }
+            }
+        }
         private async Task DoWork()
         {
             _logger.LogInformation("Location Background Service is working.");

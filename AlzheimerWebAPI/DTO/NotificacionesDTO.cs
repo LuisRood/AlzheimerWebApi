@@ -16,6 +16,8 @@ namespace AlzheimerWebAPI.DTO
 
         public Guid IdTipoNotificacion { get; set; }
 
+        public bool? Enviada { get; set; }
+
 
         public NotificacionesDTO() { }
         public NotificacionesDTO(Notificaciones notificaciones)
@@ -26,6 +28,7 @@ namespace AlzheimerWebAPI.DTO
             Hora = notificaciones.Hora;
             IdPaciente = notificaciones.IdPaciente;
             IdTipoNotificacion = notificaciones.IdTipoNotificacion;
+            Enviada = notificaciones.Enviada;
         }
     }
 }

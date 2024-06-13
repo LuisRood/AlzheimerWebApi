@@ -17,6 +17,8 @@ public partial class Notificaciones
 
     public string IdPaciente { get; set; } = null!;
 
+    public bool? Enviada { get; set; }
+
     public Guid IdTipoNotificacion { get; set; }
 
     [JsonIgnore]
@@ -34,5 +36,6 @@ public partial class Notificaciones
         Fecha = notificacionesDTO.Fecha;
         Hora = notificacionesDTO.Hora;
         IdPaciente = notificacionesDTO.IdPaciente;
+        Enviada = notificacionesDTO.Enviada;
     }
 }
